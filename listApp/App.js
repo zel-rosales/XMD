@@ -1,46 +1,68 @@
-import React, {Component, useState} from 'react'; 
-import {StyleSheet, View, Text, Button, Alert, TextInput, FlatList} from 'react-native'; 
+import React, { Component, useState } from 'react'; 
+import { StyleSheet, View, Text, Button, Alert, TextInput, FlatList } from 'react-native'; 
 
-export default class Flex extends Component {
+const MyTinerary = () => {
 
-  _onButtonPress = () => {
+  const _onButtonPress = () => {
     console.log("Button is pressed!"); 
-    Alert.alert('You have pressed the button!!!'); 
+    Alert.alert('You have pressed the button!!'); 
   }
 
-  render() {
-    return (
-      <View style={[styles.container]}>
-        <View style={{flex:1, flexDirection:'column', alignItems:'left', padding:20}}>
-          <Text style={[styles.heading]}>MyTinerary</Text>
+  // User input
+  const [text, setText] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
 
-          {/* Typing and adding an item to list */}
-          <Text style={styles.subheading}>ACTIVITY</Text>
-          <TextInput style={[styles.TextInput]}>What do you want to experience?</TextInput>
-          <Button
-            title="+ Add item"
-            onPress={this._onButtonPress}
-            color='steelblue'
+  const handleFocus = () => {
+      setIsFocused(true);
+  };
+
+  const handleTextChange = (newText) => {
+      setText(newText);
+      if (newText.length > 0) {
+          setIsFocused(true);
+      }
+  };
+
+  return (
+    <View style={[styles.container]}>
+      <View style={{flex:2, flexDirection:'column', alignItems:'left', padding:20, backgroundColor:'powderblue'}}>
+        <Text style={[styles.heading]}>MyTinerary</Text>
+
+        {/* Typing and adding an item to list */}
+        <Text style={styles.subheading}>ACTIVITY</Text>
+        {/*<TextInput style={[styles.TextInput]}>What do you want to experience?</TextInput>*/}
+        <View style={[styles.TextInput]}>
+          <TextInput
+            placeholder={!isFocused ? 'What do you want to experience?' : ''}
+            onFocus={handleFocus}
+            onChangeText={handleTextChange}
+            value={text}
           />
         </View>
-
-        {/* Displaying the list */}
-        <View style={{flex:1, flexDirection:'column', alignItems:'left', padding:20}}>
-          <Text style={[styles.subheading]}>TO DO</Text>
-          <FlatList
-            data={[
-              {name: 'activity1'},
-              {name: 'activity2'},
-              {name: 'activity3'},
-            ]}
-            renderItem={
-              ({item}) => <Text style={styles.item}>{item.name}</Text>
-            }
-          />
-        </View>
+        
+        <Button
+          title="+ Add item"
+          onPress={_onButtonPress}
+          color='steelblue'
+        />
       </View>
-    ); 
-  }
+
+      {/* Displaying the list */}
+      <View style={{flex:4, flexDirection:'column', alignItems:'left', padding:20, backgroundColor:'pink'}}>
+        <Text style={[styles.subheading]}>TO DO</Text>
+        <FlatList
+          data={[
+            {name: 'activity1'},
+            {name: 'activity2'},
+            {name: 'activity3'},
+          ]}
+          renderItem={
+            ({item}) => <Text style={styles.item}>{item.name}</Text>
+          }
+        />
+      </View>
+    </View>
+  ); 
 }
 
 const styles = StyleSheet.create({
@@ -78,3 +100,5 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
 });
+
+export default MyTinerary;
