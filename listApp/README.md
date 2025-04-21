@@ -12,19 +12,18 @@ Giselle Rosales
 
 Users can build their itinerary by adding and deleting items, marking items as complete, or restarting with a blank list.
 The app starts with an empty itinerary.
-![MyTinerary starting screen](../Assignment_screenshots/MyTinerary_starting_screen.png)
-<img src="../Assignment_screenshots/MyTinerary_starting_screen.png" alt="MyTinerary starting screen" width="400"/>
+<img src="../Assignment_screenshots/MyTinerary_starting_screen.png" alt="MyTinerary starting screen" width="200"/>
 
 **Add item** – Type into the text input box and tap the + Add Item button. The activity will appear in the To-Do list below.
-![MyTinerary add item](Assignment_screenshots/MyTinerary_add_item.png)
-![MyTinerary item added](Assignment_screenshots/MyTinerary_item_added.png)
-![MyTinerary add empty item](Assignment_screenshots/MyTinerary_add_empty_item.png)
+<img src="../Assignment_screenshots/MyTinerary_add_item.png" alt="MyTinerary add item" width="200"/>
+<img src="../Assignment_screenshots/MyTinerary_item_added.png" alt="MyTinerary item added" width="200"/>
+<img src="../Assignment_screenshots/MyTinerary_add_empty_item.png" alt="MyTinerary add empty item" width="200"/>
 
 **Delete item** – Remove a single item by tapping the ❌ next to it. Confirm deletion in the dialog box.
-![MyTinerary delete item](Assignment_screenshots/MyTinerary_delete_item.png)
+<img src="../Assignment_screenshots/MyTinerary_delete_item.png" alt="MyTinerary delete item" width="200"/>
 
 **Check/uncheck item** – Mark an activity as complete by tapping the checkbox. Tap it again to uncheck. Completed items appear grayed out and crossed off.
-![MyTinerary completed items](Assignment_screenshots/MyTinerary_completed_items.png)
+<img src="../Assignment_screenshots/MyTinerary_completed_items.png" alt="MyTinerary completed items" width="200"/>
 
 **Clear entire list** – Tap the Clear List button to remove all items. Confirm deletion in the dialog box.
-![MyTinerary clear list](Assignment_screenshots/MyTinerary_clear_list.png)
+<img src="../Assignment_screenshots/MyTinerary_clear_list.png" alt="MyTinerary clear list" width="200"/>
