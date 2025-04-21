@@ -11,14 +11,16 @@ Giselle Rosales
 ## Basic Use
 
 Users can build their itinerary by adding and deleting items, marking items as complete, or restarting with a blank list.
+
 The app starts with an empty itinerary.
 
 <img src="../Assignment_screenshots/MyTinerary_starting_screen.png" alt="MyTinerary starting screen" width="200"/>
 
 **Add item** – Type into the text input box and tap the + Add Item button. The activity will appear in the To-Do list below.
 
-<img src="../Assignment_screenshots/MyTinerary_add_item.png" alt="MyTinerary add item" width="200"/>
-<img src="../Assignment_screenshots/MyTinerary_item_added.png" alt="MyTinerary item added" width="200"/>
+<img src="../Assignment_screenshots/MyTinerary_add_item.png" alt="MyTinerary add item" width="200"/> <img src="../Assignment_screenshots/MyTinerary_item_added.png" alt="MyTinerary item added" width="200"/>
+
+Adding an empty item will result in an error dialog.
 <img src="../Assignment_screenshots/MyTinerary_add_empty_item.png" alt="MyTinerary add empty item" width="200"/>
 
 **Delete item** – Remove a single item by tapping the ❌ next to it. Confirm deletion in the dialog box.
