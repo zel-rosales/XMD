@@ -8,6 +8,12 @@ Giselle Rosales
 
 **MyTinerary** is a list-based app designed for travelers to plan and organize their upcoming trips. It allows users to create a personalized itinerary of activities they want to experience at their destination. Ideal for planners and list-lovers, MyTinerary helps users stay on track during their travels and ensures they don't miss out on anything they’ve planned!
 
+**Early Design - Wireframes**
+
+Early designs were sketched out in wireframes to explore different layouts of the components for this project, including a couple stretch goals. I combined different elements from each sketch to create a design with good visual balance. The final design became the basis for the actual app.
+
+<img src="../Assignment_screenshots/MyTinerary_wireframes.jpg" alt="MyTinerary starting screen" height="200"/>
+
 ## Basic Use
 
 Users can build their itinerary by adding and deleting items, marking items as complete, or restarting with a blank list.
@@ -21,6 +27,7 @@ The app starts with an empty itinerary.
 <img src="../Assignment_screenshots/MyTinerary_add_item.png" alt="MyTinerary add item" width="200"/> <img src="../Assignment_screenshots/MyTinerary_item_added.png" alt="MyTinerary item added" width="200"/>
 
 Adding an empty item will result in an error dialog.
+
 <img src="../Assignment_screenshots/MyTinerary_add_empty_item.png" alt="MyTinerary add empty item" width="200"/>
 
 **Delete item** – Remove a single item by tapping the ❌ next to it. Confirm deletion in the dialog box.
