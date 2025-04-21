@@ -8,11 +8,11 @@ Giselle Rosales
 
 **MyTinerary** is a list-based app designed for travelers to plan and organize their upcoming trips. It allows users to create a personalized itinerary of activities they want to experience at their destination. Ideal for planners and list-lovers, MyTinerary helps users stay on track during their travels and ensures they don't miss out on anything they’ve planned!
 
-**Early Design - Wireframes**
+**User Interface - Wireframes**
 
 Early designs were sketched out in wireframes to explore different layouts of the components for this project, including a couple stretch goals. I combined different elements from each sketch to create a design with good visual balance. The final design became the basis for the actual app.
 
-<img src="../Assignment_screenshots/MyTinerary_wireframes.jpg" alt="MyTinerary starting screen" height="200"/>
+<img src="../Assignment_screenshots/MyTinerary_wireframes.jpg" alt="MyTinerary starting screen" height="400"/>
 
 ## Basic Use
 
