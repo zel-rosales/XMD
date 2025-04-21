@@ -125,7 +125,7 @@ const MyTinerary = () => {
           renderItem={renderItem}
         />
         <Button
-          title='Clear List'
+          title='Clear All'
           onPress={clearList}
           color='crimson'
         />
