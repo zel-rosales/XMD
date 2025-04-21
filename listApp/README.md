@@ -13,6 +13,7 @@ Giselle Rosales
 Users can build their itinerary by adding and deleting items, marking items as complete, or restarting with a blank list.
 The app starts with an empty itinerary.
 ![MyTinerary starting screen](../Assignment_screenshots/MyTinerary_starting_screen.png)
+<img src="../Assignment_screenshots/MyTinerary_starting_screen.png" alt="MyTinerary starting screen" width="400"/>
 
 **Add item** – Type into the text input box and tap the + Add Item button. The activity will appear in the To-Do list below.
 ![MyTinerary add item](Assignment_screenshots/MyTinerary_add_item.png)
