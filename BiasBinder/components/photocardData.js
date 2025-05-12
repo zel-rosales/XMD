@@ -5,6 +5,7 @@ export const photocardData = [
       id: 1,
       imageKey: 'wyHachiware',
       label: 'Wooyoung (ATEEZ) - Hachiware',
+      description: "From ATEEZ’s World Tour 2023 merch set."
     },
     {
       id: 2,
