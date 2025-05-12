@@ -1,35 +1,38 @@
-// screens/ViewingScreen.js
-
-import React, { useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View, StyleSheet, Text, Switch } from 'react-native';
 import { Card, Appbar, IconButton } from 'react-native-paper';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { photocardImages } from '../components/photocardImages';
+import { PhotocardContext } from '../context/PhotocardContext';  // Import context
 
 const ViewingScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { card } = route.params;
 
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [ownsCard, setOwnsCard] = useState(false); // false = ISO, true = Own
+  // Access the context
+  const { favorites, ownership, toggleFavorite, toggleOwnership } = useContext(PhotocardContext);
 
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
+  // Determine initial states for favorite and ownership based on context
+  const isFavorite = favorites[card.id] || false;
+  const ownsCard = ownership[card.id] === 'Own';
+
+  // Toggle favorite and ownership using the context functions
+  const handleFavoriteToggle = () => {
+    toggleFavorite(card.id);
   };
 
-  const toggleOwnership = () => {
-    setOwnsCard(!ownsCard);
+  const handleOwnershipToggle = () => {
+    toggleOwnership(card.id);
   };
 
   return (
-    <>
-      <Appbar.Header>
-        <Appbar.BackAction onPress={() => navigation.goBack()} />
-        <Appbar.Content title="Photocard Details" />
-      </Appbar.Header>
-
       <View style={styles.container}>
+        <Appbar.Header>
+            <Appbar.BackAction onPress={() => navigation.goBack()} />
+            <Appbar.Content title="Photocard Details" />
+        </Appbar.Header>
+
         <Card style={styles.card}>
           <Card.Cover source={photocardImages[card.imageKey]} style={styles.image} />
           <Card.Content>
@@ -39,7 +42,7 @@ const ViewingScreen = () => {
                 icon={isFavorite ? 'heart' : 'heart-outline'}
                 iconColor={isFavorite ? 'red' : 'gray'}
                 size={24}
-                onPress={toggleFavorite}
+                onPress={handleFavoriteToggle}
               />
             </View>
             <Text style={styles.description}>
@@ -48,12 +51,11 @@ const ViewingScreen = () => {
 
             <View style={styles.toggleRow}>
               <Text style={styles.toggleLabel}>{ownsCard ? 'Own' : 'ISO'}</Text>
-              <Switch value={ownsCard} onValueChange={toggleOwnership} />
+              <Switch value={ownsCard} onValueChange={handleOwnershipToggle} />
             </View>
           </Card.Content>
         </Card>
       </View>
-    </>
   );
 };
 
