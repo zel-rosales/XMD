@@ -1,23 +1,26 @@
 // screens/ViewingScreen.js
 
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Text, Card, Appbar } from 'react-native-paper';
-import { useRoute, useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Text, Switch } from 'react-native';
+import { Card, Appbar, IconButton } from 'react-native-paper';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { photocardImages } from '../components/photocardImages';
 
 const ViewingScreen = () => {
-  const route = useRoute();
   const navigation = useNavigation();
+  const route = useRoute();
   const { card } = route.params;
 
-  if (!card) {
-    return (
-      <View style={styles.centered}>
-        <Text>No photocard data found.</Text>
-      </View>
-    );
-  }
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [ownsCard, setOwnsCard] = useState(false); // false = ISO, true = Own
+
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+  };
+
+  const toggleOwnership = () => {
+    setOwnsCard(!ownsCard);
+  };
 
   return (
     <>
@@ -30,10 +33,23 @@ const ViewingScreen = () => {
         <Card style={styles.card}>
           <Card.Cover source={photocardImages[card.imageKey]} style={styles.image} />
           <Card.Content>
-            <Text style={styles.label}>{card.label}</Text>
+            <View style={styles.headerRow}>
+              <Text style={styles.label}>{card.label}</Text>
+              <IconButton
+                icon={isFavorite ? 'heart' : 'heart-outline'}
+                iconColor={isFavorite ? 'red' : 'gray'}
+                size={24}
+                onPress={toggleFavorite}
+              />
+            </View>
             <Text style={styles.description}>
               {card.description || 'No additional details available.'}
             </Text>
+
+            <View style={styles.toggleRow}>
+              <Text style={styles.toggleLabel}>{ownsCard ? 'Own' : 'ISO'}</Text>
+              <Switch value={ownsCard} onValueChange={toggleOwnership} />
+            </View>
           </Card.Content>
         </Card>
       </View>
@@ -44,30 +60,38 @@ const ViewingScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 16,
   },
   card: {
-    elevation: 3,
+    flex: 1,
   },
   image: {
-    width: 372,
-    height: 500,
-    resizeMode: 'contain',
+    height: 300,
+  },
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 8,
   },
   label: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 10,
+    flex: 1,
   },
   description: {
-    marginTop: 8,
+    marginTop: 12,
     fontSize: 16,
-    color: '#555',
+    color: '#444',
   },
-  centered: {
-    flex: 1,
-    justifyContent: 'center',
+  toggleRow: {
+    flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 16,
+  },
+  toggleLabel: {
+    fontSize: 16,
+    marginRight: 8,
   },
 });
 
