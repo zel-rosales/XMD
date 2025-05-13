@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider as PaperProvider } from 'react-native-paper';
 
 // Import context
-import { PhotocardProvider } from './context/PhotocardContext';  // Import PhotocardProvider
+import { PhotocardProvider } from './context/PhotocardContext';
 
 // Import screens
 import HomeScreen from './screens/HomeScreen';
@@ -15,7 +15,7 @@ const Stack = createNativeStackNavigator();
 const BiasBinder = () => {
   return (
     <PaperProvider>
-      <PhotocardProvider>  {/* Wrap with PhotocardProvider */}
+      <PhotocardProvider>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Home" component={HomeScreen} />

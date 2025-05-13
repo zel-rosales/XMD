@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
 import { View, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, Text, IconButton } from 'react-native-paper';
+
+import { useNavigation } from '@react-navigation/native';
+
+// Import photocard info
 import { photocardData } from './photocardData';
 import { photocardImages } from './photocardImages';
-import { useNavigation } from '@react-navigation/native';
-import { PhotocardContext } from '../context/PhotocardContext';  // Import context
+import { PhotocardContext } from '../context/PhotocardContext';
 
 const PhotoGallery = () => {
   const navigation = useNavigation();

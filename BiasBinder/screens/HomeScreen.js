@@ -3,8 +3,9 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Appbar, BottomNavigation } from 'react-native-paper';
+
 import PhotoGallery from '../components/PhotoGallery';
-import ProfileScreen from './ProfileScreen'; // placeholder, to be created
+import ProfileScreen from './ProfileScreen';
 
 const HomeRoute = () => (
   <View style={styles.content}>
