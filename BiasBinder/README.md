@@ -40,3 +40,4 @@ While Bias Binder is currently functional, the collection (photocards and their 
 - Adding user-submitted photos to display on the Home Screen
 - Filtering the collection using a dropdown menu to display photocards that the user owns, ISO, or favorited
 - Displaying their collection progress using a progress bar
+- (Stretch) Connecting to a database that stores photocard templates (of members, full sets, etc.) and more details about photocard information
