@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, TextInput, Button, Checkbox, Appbar, BottomNavigation } from 'react-native-paper';
+import { Text, TextInput, Button, Checkbox, Appbar } from 'react-native-paper';
 import * as SecureStore from 'expo-secure-store';
 
 const ProfileScreen = () => {
@@ -75,15 +75,32 @@ const ProfileScreen = () => {
     setErrors({});
   };
 
+  // Cancel editing and revert changes
+  const handleCancel = () => {
+    setIsEditing(false);
+    // Reload original data from SecureStore
+    (async () => {
+      const savedName = await SecureStore.getItemAsync('name');
+      const savedArtist = await SecureStore.getItemAsync('artist');
+      const savedUltBias = await SecureStore.getItemAsync('ultBias');
+      const savedRoles = await SecureStore.getItemAsync('roles');
+
+      if (savedName) setName(savedName);
+      if (savedArtist) setArtist(savedArtist);
+      if (savedUltBias) setUltBias(savedUltBias);
+      if (savedRoles) setRoles(JSON.parse(savedRoles));
+    })();
+  };
+
   return (
     <View style={styles.container}>
       <Appbar.Header>
-      <Appbar.Content title="User Profile" />
-    </Appbar.Header>
+        <Appbar.Content title="User Profile" />
+      </Appbar.Header>
 
       {isEditing ? (
         <>
-          <View style={{marginBottom:20}}>
+          <View style={{ marginBottom: 20 }}>
             <Text style={styles.sectionLabel}>My Info</Text>
             <TextInput
               label="Name"
@@ -94,7 +111,7 @@ const ProfileScreen = () => {
             />
           </View>
 
-          <View style={{marginBottom:20}}>
+          <View style={{ marginBottom: 20 }}>
             <Text style={styles.sectionLabel}>My Favorites</Text>
             <TextInput
               label="Favorite Artist"
@@ -123,38 +140,37 @@ const ProfileScreen = () => {
             </View>
           ))}
 
-          <View style={(styles.buttonContainer)}>
-            <Button mode="contained" onPress={handleSave} style={styles.button}>Save </Button>
+          <View style={styles.buttonContainer}>
+            <Button mode="contained" onPress={handleSave} style={styles.button}>Save</Button>
+            <Button mode="outlined" onPress={handleCancel} style={styles.button}>Cancel</Button>
           </View>
         </>
       ) : (
         <>
-          <View style={{marginBottom:20}}>
+          <View style={{ marginBottom: 20 }}>
             <Text style={styles.sectionLabel}>My Info</Text>
             <Text style={styles.savedText}>Name: {name}</Text>
           </View>
 
-          <View style={{marginBottom:20}}>
+          <View style={{ marginBottom: 20 }}>
             <Text style={styles.sectionLabel}>My Favorites</Text>
             <Text style={styles.savedText}>Favorite Artist: {artist}</Text>
             <Text style={styles.savedText}>Ult Bias: {ultBias}</Text>
           </View>
 
-          <View style={{marginBottom:20}}>
+          <View style={{ marginBottom: 20 }}>
             <Text style={styles.sectionLabel}>I am a...</Text>
             {Object.keys(roles).map((role) =>
               roles[role] ? <Text key={role} style={styles.savedText}>{role}</Text> : null
             )}
           </View>
 
-          <View style={(styles.buttonContainer)}>
+          <View style={styles.buttonContainer}>
             <Button mode="outlined" onPress={handleEdit} style={styles.button}>Edit</Button>
             <Button mode="text" onPress={handleClear} style={styles.button}>Clear</Button>
           </View>
         </>
       )}
-
-    
     </View>
   );
 };
