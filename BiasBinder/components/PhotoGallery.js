@@ -1,7 +1,8 @@
+// components/PhotoGallery.js
+
 import React, { useContext } from 'react';
 import { View, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, Text, IconButton } from 'react-native-paper';
-
 import { useNavigation } from '@react-navigation/native';
 
 // Import photocard info
@@ -11,7 +12,7 @@ import { PhotocardContext } from '../context/PhotocardContext';
 
 const PhotoGallery = () => {
   const navigation = useNavigation();
-  const { favorites, ownership, toggleFavorite, toggleOwnership } = useContext(PhotocardContext); // Access context
+  const { favorites, ownership, toggleFavorite, toggleOwnership } = useContext(PhotocardContext);
 
   const renderItem = ({ item }) => {
     const isFavorited = favorites[item.id];
@@ -27,28 +28,25 @@ const PhotoGallery = () => {
             source={photocardImages[item.imageKey]}
             style={styles.image}
           />
-            <Card.Content style={styles.captionContainer}>
+          <Card.Content style={styles.captionContainer}>
             <Text style={styles.caption}>{item.label}</Text>
-
-            <View style={styles.metaRow}> {/* <- NEW wrapper */}
-                {/* Heart Icon */}
-                <IconButton
+            <View style={styles.metaRow}>
+              {/* Heart Icon */}
+              <IconButton
                 icon={isFavorited ? 'heart' : 'heart-outline'}
                 color={isFavorited ? 'red' : 'gray'}
                 size={20}
                 style={styles.heartIcon}
                 onPress={() => toggleFavorite(item.id)}
-                />
-
-                {/* Ownership Tag */}
-                {cardOwnership && (
+              />
+              {/* Ownership Tag */}
+              {cardOwnership && (
                 <Text style={styles.ownershipTag}>
-                    {cardOwnership}
+                  {cardOwnership}
                 </Text>
-                )}
+              )}
             </View>
-            </Card.Content>
-
+          </Card.Content>
         </Card>
       </TouchableOpacity>
     );
@@ -62,6 +60,7 @@ const PhotoGallery = () => {
         keyExtractor={(item) => item.id.toString()}
         numColumns={2}
         contentContainerStyle={styles.list}
+        columnWrapperStyle={styles.row} // ensures consistent layout
       />
     </View>
   );
@@ -75,9 +74,12 @@ const styles = StyleSheet.create({
   list: {
     paddingBottom: 20,
   },
+  row: {
+    justifyContent: 'space-between',
+  },
   cardWrapper: {
-    flex: 1,
-    margin: 5,
+    width: '48%',
+    marginBottom: 10,
   },
   card: {
     flex: 1,
@@ -98,18 +100,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   heartIcon: {
-    marginTop: 5, // Space between caption and heart icon
+    marginTop: 5,
   },
   ownershipTag: {
     fontSize: 12,
     color: '#555',
-    marginTop: 5, // Space between heart icon and ownership tag
+    marginTop: 5,
   },
   metaRow: {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8, // optional spacing between heart and label
+    gap: 8,
     marginTop: 5,
   },
 });
