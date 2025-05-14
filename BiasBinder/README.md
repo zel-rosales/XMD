@@ -15,8 +15,7 @@ The app’s target audience includes K-pop enthusiasts—especially photocard co
 The **Home Screen** displays all photocards:
 - Own: Photocards they own
 - ISO: "In Search Of," i.e., photocards on their wishlist
-
-Hearted cards indicate favorites, regardless if owned or not.
+- Hearted: Indicating a card as favorite, regardless if owned or not.
 
 <img src="../Assignment_screenshots/BiasBinder_home.png" alt="Bias Binder Home Screen" width="200"/>
 
