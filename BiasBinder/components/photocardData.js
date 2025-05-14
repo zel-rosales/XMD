@@ -22,6 +22,11 @@ export const photocardData = [
       imageKey: 'sbTemptation',
       label: 'Soobin (TXT) - Temptation',
     },
+    {
+      id: 5,
+      imageKey: 'wy_ghpt2',
+      label: 'Wooyoung (ATEEZ) - Golden Hour Pt.2',
+    },
     // Add more card objects here
   ];
   
