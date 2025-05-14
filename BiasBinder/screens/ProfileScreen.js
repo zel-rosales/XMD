@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, TextInput, Button, Checkbox } from 'react-native-paper';
+import { Text, TextInput, Button, Checkbox, Appbar, BottomNavigation } from 'react-native-paper';
 import * as SecureStore from 'expo-secure-store';
 
 const ProfileScreen = () => {
@@ -77,31 +77,40 @@ const ProfileScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>User Profile</Text>
+      <Appbar.Header>
+      <Appbar.Content title="User Profile" />
+    </Appbar.Header>
 
       {isEditing ? (
         <>
-          <TextInput
-            label="Name"
-            value={name}
-            onChangeText={setName}
-            error={!!errors.name}
-            style={styles.input}
-          />
-          <TextInput
-            label="Favorite Artist"
-            value={artist}
-            onChangeText={setArtist}
-            error={!!errors.artist}
-            style={styles.input}
-          />
-          <TextInput
-            label="Ult Bias"
-            value={ultBias}
-            onChangeText={setUltBias}
-            error={!!errors.ultBias}
-            style={styles.input}
-          />
+          <View style={{marginBottom:20}}>
+            <Text style={styles.sectionLabel}>My Info</Text>
+            <TextInput
+              label="Name"
+              value={name}
+              onChangeText={setName}
+              error={!!errors.name}
+              style={styles.input}
+            />
+          </View>
+
+          <View style={{marginBottom:20}}>
+            <Text style={styles.sectionLabel}>My Favorites</Text>
+            <TextInput
+              label="Favorite Artist"
+              value={artist}
+              onChangeText={setArtist}
+              error={!!errors.artist}
+              style={styles.input}
+            />
+            <TextInput
+              label="Ult Bias"
+              value={ultBias}
+              onChangeText={setUltBias}
+              error={!!errors.ultBias}
+              style={styles.input}
+            />
+          </View>
 
           <Text style={styles.sectionLabel}>I am a...</Text>
           {['collector', 'trader', 'seller'].map((role) => (
@@ -114,21 +123,34 @@ const ProfileScreen = () => {
             </View>
           ))}
 
-          <Button mode="contained" onPress={handleSave} style={styles.button}>Save</Button>
+          <View style={(styles.buttonContainer)}>
+            <Button mode="contained" onPress={handleSave} style={styles.button}>Save </Button>
+          </View>
         </>
       ) : (
         <>
-          <Text style={styles.savedText}>Name: {name}</Text>
-          <Text style={styles.savedText}>Favorite Artist: {artist}</Text>
-          <Text style={styles.savedText}>Ult Bias: {ultBias}</Text>
+          <View style={{marginBottom:20}}>
+            <Text style={styles.sectionLabel}>My Info</Text>
+            <Text style={styles.savedText}>Name: {name}</Text>
+          </View>
 
-          <Text style={styles.sectionLabel}>I am a...</Text>
-          {Object.keys(roles).map((role) =>
-            roles[role] ? <Text key={role} style={styles.savedText}>{role}</Text> : null
-          )}
+          <View style={{marginBottom:20}}>
+            <Text style={styles.sectionLabel}>My Favorites</Text>
+            <Text style={styles.savedText}>Favorite Artist: {artist}</Text>
+            <Text style={styles.savedText}>Ult Bias: {ultBias}</Text>
+          </View>
 
-          <Button mode="outlined" onPress={handleEdit} style={styles.button}>Edit</Button>
-          <Button mode="text" onPress={handleClear} style={styles.button}>Clear</Button>
+          <View style={{marginBottom:20}}>
+            <Text style={styles.sectionLabel}>I am a...</Text>
+            {Object.keys(roles).map((role) =>
+              roles[role] ? <Text key={role} style={styles.savedText}>{role}</Text> : null
+            )}
+          </View>
+
+          <View style={(styles.buttonContainer)}>
+            <Button mode="outlined" onPress={handleEdit} style={styles.button}>Edit</Button>
+            <Button mode="text" onPress={handleClear} style={styles.button}>Clear</Button>
+          </View>
         </>
       )}
 
@@ -140,22 +162,18 @@ const ProfileScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 10,
     backgroundColor: 'white',
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
   input: {
-    marginBottom: 10,
+    margin: 10,
   },
   sectionLabel: {
     fontSize: 16,
     fontWeight: 'bold',
     marginTop: 10,
+    marginBottom: 10,
+    paddingLeft: 10,
   },
   checkboxRow: {
     flexDirection: 'row',
@@ -165,9 +183,21 @@ const styles = StyleSheet.create({
   savedText: {
     fontSize: 16,
     marginVertical: 4,
+    paddingLeft: 10,
   },
   button: {
     marginTop: 10,
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: 20,
+    left: 0,
+    right: 0,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    paddingHorizontal: 16,
   },
 });
 
