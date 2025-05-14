@@ -17,11 +17,11 @@ export const photocardData = [
       imageKey: 'iuLovepoem',
       label: 'IU - Love Poem',
     },
-    {
-      id: 4,
-      imageKey: 'sbTemptation',
-      label: 'Soobin (TXT) - Temptation',
-    },
+    // {
+    //   id: 4,
+    //   imageKey: 'sbTemptation',
+    //   label: 'Soobin (TXT) - Temptation',
+    // },
     // Add more card objects here
   ];
   
