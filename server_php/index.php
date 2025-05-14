@@ -7,7 +7,7 @@
     <body>
         <h1>A Test PHP Page</h1>
         <?php
-            $data = array("John", "Mary", "Lucas");
+            $data = array("Wooyoung", "Yoongi", "Soobin");
             foreach($data as $name){
                 echo "<p>$name</p>";
             }
