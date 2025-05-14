@@ -130,7 +130,7 @@ const ProfileScreen = () => {
           </View>
 
           <Text style={styles.sectionLabel}>I am a...</Text>
-          {['collector', 'trader', 'seller'].map((role) => (
+          {['Collector', 'Trader', 'Seller'].map((role) => (
             <View key={role} style={styles.checkboxRow}>
               <Checkbox
                 status={roles[role] ? 'checked' : 'unchecked'}
