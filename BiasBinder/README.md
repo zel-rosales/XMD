@@ -18,17 +18,21 @@ The **Home Screen** displays all photocards:
 
 Hearted cards indicate favorites, regardless if owned or not.
 
-_screenshot here_
+<img src="../Assignment_screenshots/BiasBinder_home.png" alt="Bias Binder Home Screen" width="200"/>
 
 Click a photocard to read more details about it on the **Viewing Page**.
 Here users can favorite/unfavorite the card by tapping on the heart.
 They can also use the ISO/Own toggle to declare if they own the card or are looking to collect it.
 
-_screenshot here_
+<img src="../Assignment_screenshots/BiasBinder_viewing.png" alt="Bias Binder Viewing Page 1" width="200"/> <img src="../Assignment_screenshots/BiasBinder_viewing2.png" alt="Bias Binder Viewing Page 2" width="200"/>
 
 On the **User Profile** page, personal information--their name name, favorite group/solo artist, ult bias (ultimate favorite idol/member of group), and their collection focus--can be saved, edited, and cleared.
 
-_screenshot here_
+<img src="../Assignment_screenshots/BiasBinder_profileEmpty.png" alt="Bias Binder Profile Page Empty Info" width="200"/> <img src="../Assignment_screenshots/BiasBinder_profileFilled.png" alt="Bias Binder Profile Page Filled Info" width="200"/>
+
+If an input box is left blank, **error handling** prevents the information from saving empty strings:
+
+<img src="../Assignment_screenshots/BiasBinder_profileError.png" alt="Bias Binder Profile Page Error Info" width="200"/>
 
 ## Future Steps
 
