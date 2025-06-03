@@ -2,6 +2,11 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
+# To allow different origin (domain) access
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
 # Start a new SQLite connection
 $db = new PDO('sqlite:database/store.db');
 

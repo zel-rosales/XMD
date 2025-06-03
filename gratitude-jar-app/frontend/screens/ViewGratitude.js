@@ -1,4 +1,3 @@
-// Shows past entries
 // screens/ViewGratitude.js
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
@@ -7,13 +6,28 @@ export default function ViewGratitude() {
   const [gratitudes, setGratitudes] = useState([]);
 
   useEffect(() => {
-    // Placeholder simulated data — replace with API call later
-    const sampleData = [
-      { id: '1', text: 'Had a great coffee today' },
-      { id: '2', text: 'Talked to a good friend' },
-      { id: '3', text: 'Got some fresh air and sunshine' },
-    ];
-    setGratitudes(sampleData);
+    const fetchGratitudes = async () => {
+      try {
+        const response = await fetch('https://www.cs.drexel.edu/~gr539/gratitude-jar-app/backend/get_gratitudes.php');
+        const text = await response.text();
+        console.log('Raw response:\n' + text); // Debug print
+
+        // Parse the plain text data into an array of objects
+        const entries = text
+          .trim()
+          .split('\n')
+          .map(line => {
+            const [id, thankful] = line.split('||');
+            return { id, text: thankful };
+          });
+
+        setGratitudes(entries);
+      } catch (error) {
+        console.error('Error fetching entries:', error);
+      }
+    };
+
+    fetchGratitudes();
   }, []);
 
   const renderItem = ({ item }) => (
@@ -50,7 +64,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   card: {
-    // backgroundColor: '#e6f7ff',
     padding: 12,
     marginVertical: 6,
     borderRadius: 8,
