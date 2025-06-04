@@ -1,37 +1,38 @@
 <?php
-// Allow all origins (for development; limit in production)
+// Allow all origins (for development; restrict in production)
 header("Access-Control-Allow-Origin: *");
 
-// Helper function to check if a required field is missing
-function isMissing($value) {
-  return !isset($value) || trim($value) === '';
+// Set database filename
+$dbFile = 'photocards.db';
+
+// Delete existing DB if it exists (optional: only for clean resets)
+// unlink($dbFile);
+
+// Create or open the SQLite3 database
+$db = new SQLite3($dbFile);
+
+// SQL to create the photocards table
+$sql = "CREATE TABLE IF NOT EXISTS photocards (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    imageUrl TEXT,
+    label TEXT NOT NULL,
+    artist TEXT NOT NULL,
+    member TEXT NOT NULL,
+    album TEXT NOT NULL,
+    favorite INTEGER DEFAULT 0,
+    status TEXT NOT NULL,
+    sell INTEGER DEFAULT 0,
+    trade INTEGER DEFAULT 0,
+    buy INTEGER DEFAULT 0
+)";
+
+// Attempt to create table
+if ($db->exec($sql)) {
+    echo "Database and table created successfully!";
+} else {
+    echo "Error creating database: " . $db->lastErrorMsg();
 }
 
-// Collect and sanitize GET inputs
-$imageUrl = isset($_GET['imageUrl']) ? htmlspecialchars($_GET['imageUrl']) : '';
-$label = isset($_GET['label']) ? htmlspecialchars($_GET['label']) : '';
-$artist = isset($_GET['artist']) ? htmlspecialchars($_GET['artist']) : '';
-$member = isset($_GET['member']) ? htmlspecialchars($_GET['member']) : '';
-$album = isset($_GET['album']) ? htmlspecialchars($_GET['album']) : '';
-$favorite = isset($_GET['favorite']) ? intval($_GET['favorite']) : 0;
-$status = isset($_GET['status']) ? htmlspecialchars($_GET['status']) : '';
-$sell = isset($_GET['sell']) ? intval($_GET['sell']) : 0;
-$trade = isset($_GET['trade']) ? intval($_GET['trade']) : 0;
-$buy = isset($_GET['buy']) ? intval($_GET['buy']) : 0;
-
-// Validate required fields
-if (
-  isMissing($label) ||
-  isMissing($artist) ||
-  isMissing($member) ||
-  isMissing($album) ||
-  isMissing($status)
-) {
-  http_response_code(400);
-  echo "Error: Missing required field(s).";
-  exit;
-}
-
-// Simulate successful response (no file/database saving)
-echo "Photocard uploaded successfully with label: $label";
+// Close database
+$db->close();
 ?>
