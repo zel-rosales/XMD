@@ -52,7 +52,7 @@ const UploadScreen = () => {
     fetch(url)
       .then(response => response.text())
       .then(data => {
-        console.log('Upload success:', data);
+        console.log('Upload success:', label); // for debugging
         navigation.goBack();
       })
       .catch(error => {
