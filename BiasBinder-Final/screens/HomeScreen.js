@@ -3,6 +3,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Appbar, BottomNavigation } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
 // Import MaterialCommunityIcons for consistent icon usage
 import { MaterialCommunityIcons } from 'react-native-vector-icons';
@@ -10,14 +11,20 @@ import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import PhotoGallery from '../components/PhotoGallery';
 import ProfileScreen from './ProfileScreen';
 
-const HomeRoute = () => (
-  <View style={styles.content}>
-    <Appbar.Header>
-      <Appbar.Content title="Bias Binder" />
-    </Appbar.Header>
-    <PhotoGallery />
-  </View>
-);
+const HomeRoute = () => {
+  const navigation = useNavigation();
+
+  return (
+    <View style={styles.content}>
+      <Appbar.Header>
+        <Appbar.Content title="Bias Binder" />
+        <Appbar.Action icon="plus" onPress={() => navigation.navigate('Upload')} />
+      </Appbar.Header>
+      <PhotoGallery />
+    </View>
+  );
+};
+
 
 const ProfileRoute = () => <ProfileScreen />;
 

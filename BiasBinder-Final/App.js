@@ -9,6 +9,7 @@ import { PhotocardProvider } from './context/PhotocardContext';
 // Import screens
 import HomeScreen from './screens/HomeScreen';
 import ViewingScreen from './screens/ViewingScreen';
+import UploadScreen from './screens/UploadScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ const BiasBinder = () => {
           <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Viewing" component={ViewingScreen} />
+            <Stack.Screen name="Upload" component={UploadScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </PhotocardProvider>
