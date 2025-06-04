@@ -5,7 +5,7 @@ import { Card, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
 const sampleCards = [
-  { id: '1', name: 'Wooyoung', image: require('../assets/photocards/wy_fever.jpg') },
+  { id: '1', name: 'Wooyoung (ATEEZ)', image: require('../assets/photocards/wy_fever.jpg') },
   // Add more cards as needed
 ];
 

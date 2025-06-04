@@ -1,9 +1,14 @@
 // screens/HomeScreen.js
+
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Appbar, BottomNavigation } from 'react-native-paper';
+
+// Import MaterialCommunityIcons for consistent icon usage
+import { MaterialCommunityIcons } from 'react-native-vector-icons';
+
 import PhotoGallery from '../components/PhotoGallery';
-import ProfileScreen from './ProfileScreen'; // placeholder, to be created
+import ProfileScreen from './ProfileScreen';
 
 const HomeRoute = () => (
   <View style={styles.content}>
@@ -19,8 +24,8 @@ const ProfileRoute = () => <ProfileScreen />;
 const HomeScreen = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'home', title: 'Home', icon: 'home' },
-    { key: 'profile', title: 'Profile', icon: 'account' },
+    { key: 'home', title: 'Home', icon: 'home' },  // Home icon
+    { key: 'profile', title: 'Profile', icon: 'account' },  // Profile icon
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
@@ -33,6 +38,13 @@ const HomeScreen = () => {
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
       renderScene={renderScene}
+      renderIcon={({ route, focused, color }) => (
+        <MaterialCommunityIcons
+          name={route.icon}
+          size={24}
+          color={color}
+        />
+      )}
     />
   );
 };
