@@ -6,6 +6,8 @@ export default function App() {
   const [entry, setEntry] = useState('');
   const [status, setStatus] = useState('');
   const [entries, setEntries] = useState([]);
+  const [randomEntry, setRandomEntry] = useState('');
+  const [clearStatus, setClearStatus] = useState('');
 
   const handleAddEntry = async() => {
     if(!entry) {
@@ -30,6 +32,21 @@ export default function App() {
     }
   };
 
+  const handleGetRandomEntry = async () => {
+  try {
+    const response = await fetch('https://www.cs.drexel.edu/~gr539/gratitude-jar-app/backend/get_random_gratitude.php');
+    const data = await response.json();
+
+    if (data.thankful) {
+      setRandomEntry(`📝 ${data.thankful}`);
+    } else {
+      setRandomEntry("No gratitude entries found.");
+    }
+  } catch (error) {
+    setRandomEntry("Fetch error: " + error.message);
+  }
+};
+
   const handleLoadEntries = async () => {
     try {
       const response = await fetch('https://www.cs.drexel.edu/~gr539/gratitude-jar-app/backend/get_gratitudes.php');
@@ -39,6 +56,26 @@ export default function App() {
       console.log('Fetch error:', error.message);
     }
   };
+
+  const handleClearEntries = async () => {
+  try {
+    const response = await fetch(
+      'https://www.cs.drexel.edu/~gr539/gratitude-jar-app/backend/clear_gratitudes.php',
+      { method: 'POST' }          // use POST so it’s not run accidentally from a URL
+    );
+    const data = await response.json();
+
+    if (data.success) {
+      setEntries([]);             // empty local list
+      setRandomEntry('');
+      setClearStatus('🔄 Jar emptied!');
+    } else {
+      setClearStatus('Could not clear entries.');
+    }
+  } catch (err) {
+    setClearStatus('Fetch error: ' + err.message);
+  }
+};
 
   return (
     <View style={styles.container}>
@@ -54,6 +91,18 @@ export default function App() {
       <Text>{status}</Text>
 
       <View style={styles.separator} />
+
+      {/* Display random entry from jar */}
+      <Button title='Pick a Random Gratitude' onPress={handleGetRandomEntry} />
+      <Text style={{ marginTop: 10 }}>{randomEntry}</Text>
+
+      <Button
+        color="#b71c1c"                   
+        title="Clear All Gratitudes"
+        onPress={handleClearEntries}
+      />
+      <Text style={{ marginTop: 6 }}>{clearStatus}</Text>
+
 
       <Button title='Load Gratitudes' onPress={handleLoadEntries} />
 
