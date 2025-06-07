@@ -1,18 +1,28 @@
-// screens/HomeScreen.js
-
-import React from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Appbar, BottomNavigation } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect, useRoute } from '@react-navigation/native';
 
-// Import MaterialCommunityIcons for consistent icon usage
-import { MaterialCommunityIcons } from 'react-native-vector-icons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import PhotoGallery from '../components/PhotoGallery';
 import ProfileScreen from './ProfileScreen';
 
 const HomeRoute = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const [refreshFlag, setRefreshFlag] = useState(false);
+  const { refresh } = route.params || {};
+
+  useFocusEffect(
+    useCallback(() => {
+      if (refresh) {
+        setRefreshFlag(prev => !prev);
+        navigation.setParams({ refresh: false });
+      }
+    }, [refresh])
+  );
 
   return (
     <View style={styles.content}>
@@ -20,19 +30,18 @@ const HomeRoute = () => {
         <Appbar.Content title="Bias Binder" />
         <Appbar.Action icon="plus" onPress={() => navigation.navigate('Upload')} />
       </Appbar.Header>
-      <PhotoGallery />
+      <PhotoGallery refreshFlag={refreshFlag} />
     </View>
   );
 };
-
 
 const ProfileRoute = () => <ProfileScreen />;
 
 const HomeScreen = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'home', title: 'Home', icon: 'home' },  // Home icon
-    { key: 'profile', title: 'Profile', icon: 'account' },  // Profile icon
+    { key: 'home', title: 'Home', icon: 'home' },
+    { key: 'profile', title: 'Profile', icon: 'account' },
   ]);
 
   const renderScene = BottomNavigation.SceneMap({

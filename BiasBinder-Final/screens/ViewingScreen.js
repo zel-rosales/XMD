@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Switch } from 'react-native';
 import { Card, Appbar, IconButton } from 'react-native-paper';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { photocardImages } from '../components/photocardImages';
-import { PhotocardContext } from '../context/PhotocardContext'; 
+// import { PhotocardContext } from '../context/PhotocardContext'; 
 
 const ViewingScreen = () => {
   const navigation = useNavigation();

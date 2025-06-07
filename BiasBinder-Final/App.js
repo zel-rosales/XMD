@@ -1,32 +1,107 @@
-import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Provider as PaperProvider } from 'react-native-paper';
+import React, { useEffect, useState } from 'react';
+import { View, FlatList, Text, Image, StyleSheet } from 'react-native';
 
-// Import context
-import { PhotocardProvider } from './context/PhotocardContext';
+const PhotoGallery = ({ refreshFlag }) => {
+  const [photocards, setPhotocards] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-// Import screens
-import HomeScreen from './screens/HomeScreen';
-import ViewingScreen from './screens/ViewingScreen';
-import UploadScreen from './screens/UploadScreen';
+  // const parseCSV = (text) => {
+  //   const lines = text.trim().split('\n');
+  //   const headers = lines[0].split(',');
+  //   const data = lines.slice(1).map(line => {
+  //     const values = line.split(',');
+  //     let obj = {};
+  //     headers.forEach((header, i) => {
+  //       // For numeric fields convert to numbers, others keep as string
+  //       if (['id','favorite','sell','trade','buy'].includes(header)) {
+  //         obj[header] = Number(values[i]);
+  //       } else {
+  //         obj[header] = values[i];
+  //       }
+  //     });
+  //     return obj;
+  //   });
+  //   return data;
+  // };
 
-const Stack = createNativeStackNavigator();
+  // const fetchPhotocards = async () => {
+  //   try {
+  //     const response = await fetch('https://www.cs.drexel.edu/~gr539/BiasBinder-Final/backend/get_photocards.php?');
+  //     const text = await response.text();
+  //     const parsedData = parseCSV(text);
+  //     setPhotocards(parsedData);
+  //   } catch (error) {
+  //     console.error("Error fetching photocards:", error);
+  //   }
+  // };
 
-const BiasBinder = () => {
+  const renderItem = ({ item }) => (
+    <View style={styles.card}>
+      <Text>{item.label}</Text>
+      <Text>{item.artist}</Text>
+      <Text>{item.member}</Text>
+    </View>
+    // <View style={styles.item}>
+    //   <Text style={styles.name}>Name: {item.name}</Text>
+    //   <Text>Age: {item.age}</Text>
+    // </View>
+  );
+
+
+    const fetchPhotocards = async () => {
+    try {
+      const response = await fetch('https://www.cs.drexel.edu/~gr539/BiasBinder-Final/backend/get_photocards.php');
+      const json = await response.json();
+      if (json) {
+        setPhotocards(json);
+      } else {
+        setError('No student data found.');
+      }
+    } catch (err) {
+      setError('Fetch error: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchPhotocards();
+  }, [refreshFlag]);
+
   return (
-    <PaperProvider>
-      <PhotocardProvider>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Viewing" component={ViewingScreen} />
-            <Stack.Screen name="Upload" component={UploadScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </PhotocardProvider>
-    </PaperProvider>
+    <FlatList
+      data={photocards}
+      keyExtractor={(item) => item.id}
+      renderItem={renderItem}
+      // {({ renderitem }) => (
+      //   <View style={styles.card}>
+      //     <Text>{item.label}</Text>
+      //     <Text>{item.artist}</Text>
+      //     <Text>{item.member}</Text>
+      //     {item.image_url ? (
+      //       <Image source={{ uri: item.image_url }} style={styles.image} />
+      //     ) : (
+      //       <Text>No image</Text>
+      //     )}
+      //     {/* other fields as needed */}
+      //   </View>
+      // )}
+    />
   );
 };
 
-export default BiasBinder;
+
+const styles = StyleSheet.create({
+  card: {
+    margin: 10,
+    padding: 10,
+    borderWidth: 1,
+  },
+  image: {
+    width: 100,
+    height: 100,
+  },
+});
+
+export default PhotoGallery;

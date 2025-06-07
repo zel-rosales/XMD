@@ -1,12 +1,11 @@
 <?php
 // Allow all origins (for development; restrict in production)
 header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 // Set database filename
-$dbFile = 'photocards.db';
-
-// Delete existing DB if it exists (optional: only for clean resets)
-// unlink($dbFile);
+$dbFile = './database/photocards.db';
 
 // Create or open the SQLite3 database
 $db = new SQLite3($dbFile);
@@ -14,7 +13,7 @@ $db = new SQLite3($dbFile);
 // SQL to create the photocards table
 $sql = "CREATE TABLE IF NOT EXISTS photocards (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    imageUrl TEXT,
+    image_url TEXT,
     label TEXT NOT NULL,
     artist TEXT NOT NULL,
     member TEXT NOT NULL,

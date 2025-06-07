@@ -1,121 +1,104 @@
-import React, { useContext } from 'react';
-import { View, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import { Card, Text, IconButton } from 'react-native-paper';
+import React, { useEffect, useState } from 'react';
+import { View, FlatList, Text, Image, StyleSheet } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+const PhotoGallery = ({ refreshFlag }) => {
+  const [photocards, setPhotocards] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-// Import photocard info
-import { photocardData } from './photocardData';
-import { photocardImages } from './photocardImages';
-import { PhotocardContext } from '../context/PhotocardContext';
+  // const parseCSV = (text) => {
+  //   const lines = text.trim().split('\n');
+  //   const headers = lines[0].split(',');
+  //   const data = lines.slice(1).map(line => {
+  //     const values = line.split(',');
+  //     let obj = {};
+  //     headers.forEach((header, i) => {
+  //       // For numeric fields convert to numbers, others keep as string
+  //       if (['id','favorite','sell','trade','buy'].includes(header)) {
+  //         obj[header] = Number(values[i]);
+  //       } else {
+  //         obj[header] = values[i];
+  //       }
+  //     });
+  //     return obj;
+  //   });
+  //   return data;
+  // };
 
-const PhotoGallery = () => {
-  const navigation = useNavigation();
-  const { favorites, ownership, toggleFavorite, toggleOwnership } = useContext(PhotocardContext); // Access context
+  // const fetchPhotocards = async () => {
+  //   try {
+  //     const response = await fetch('https://www.cs.drexel.edu/~gr539/BiasBinder-Final/backend/get_photocards.php?');
+  //     const text = await response.text();
+  //     const parsedData = parseCSV(text);
+  //     setPhotocards(parsedData);
+  //   } catch (error) {
+  //     console.error("Error fetching photocards:", error);
+  //   }
+  // };
 
-  const renderItem = ({ item }) => {
-    const isFavorited = favorites[item.id];
-    const cardOwnership = ownership[item.id];
+    const fetchPhotocards = async () => {
+    try {
+      const response = await fetch('https://www.cs.drexel.edu/~gr539/BiasBinder-Final/backend/get_photocards.php');
+      const json = await response.json();
+      if (json) {
+        setPhotocards(json);
+      } else {
+        setError('No student data found.');
+      }
+    } catch (err) {
+      setError('Fetch error: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
 
-    return (
-      <TouchableOpacity
-        style={styles.cardWrapper}
-        onPress={() => navigation.navigate('Viewing', { card: item })}
-      >
-
-      <Card style={styles.card}>
-        <Card.Cover
-          source={photocardImages[item.imageKey]}
-          style={styles.image}
-        />
-
-          <Card.Content style={styles.captionContainer}>
-            <Text style={styles.caption}>{item.label}</Text>
-
-            <View style={styles.metaRow}>
-              {/* Heart Icon */}
-              <IconButton
-                icon={isFavorited ? 'heart' : 'heart-outline'}
-                color={isFavorited ? 'red' : 'gray'}
-                size={20}
-                style={styles.heartIcon}
-                onPress={() => toggleFavorite(item.id)}
-              />
-
-              {/* Ownership Tag */}
-              {cardOwnership && (
-              <Text style={styles.ownershipTag}>
-                {cardOwnership}
-              </Text>
-              )}
-            </View>
-          </Card.Content>
-        </Card>
-      </TouchableOpacity>
-    );
-  };
+  useEffect(() => {
+    fetchPhotocards();
+  }, [refreshFlag]);
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={photocardData}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
-        numColumns={2}
-        contentContainerStyle={styles.list}
-        columnWrapperStyle={styles.row}
-      />
-    </View>
+    <FlatList
+      data={photocards}
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={renderItem}
+      // {({ renderitem }) => (
+      //   <View style={styles.card}>
+      //     <Text>{item.label}</Text>
+      //     <Text>{item.artist}</Text>
+      //     <Text>{item.member}</Text>
+      //     {item.image_url ? (
+      //       <Image source={{ uri: item.image_url }} style={styles.image} />
+      //     ) : (
+      //       <Text>No image</Text>
+      //     )}
+      //     {/* other fields as needed */}
+      //   </View>
+      // )}
+    />
   );
 };
 
+  const renderItem = ({ item }) => (
+    <View style={styles.card}>
+      <Text>{item.label}</Text>
+      <Text>{item.artist}</Text>
+      <Text>{item.member}</Text>
+    </View>
+    // <View style={styles.item}>
+    //   <Text style={styles.name}>Name: {item.name}</Text>
+    //   <Text>Age: {item.age}</Text>
+    // </View>
+  );
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-  },
-  list: {
-    paddingBottom: 20,
-  },
-  row: {
-    justifyContent: 'space-between',
-  },
-  cardWrapper: {
-    width: '48%',
-    marginBottom: 10,
-  },
   card: {
-    flex: 1,
-    backgroundColor: 'white',
+    margin: 10,
+    padding: 10,
+    borderWidth: 1,
   },
   image: {
-    height: 150,
-    resizeMode: 'cover',
-    borderRadius: 8,
-  },
-  captionContainer: {
-    alignItems: 'center',
-    marginTop: 5,
-  },
-  caption: {
-    fontSize: 14,
-    fontWeight: '500',
-    textAlign: 'center',
-  },
-  heartIcon: {
-    marginTop: 5,
-  },
-  ownershipTag: {
-    fontSize: 12,
-    color: '#555',
-    marginTop: 5,
-  },
-  metaRow: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    marginTop: 5,
+    width: 100,
+    height: 100,
   },
 });
 

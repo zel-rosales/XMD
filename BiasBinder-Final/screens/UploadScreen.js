@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 const UploadScreen = () => {
   const navigation = useNavigation();
 
-  const [imageUrl, setImageUrl] = useState('');
+  const [image_url, setImageUrl] = useState('');
   const [label, setLabel] = useState('');
   const [artist, setArtist] = useState('');
   const [member, setMember] = useState('');
@@ -35,7 +35,7 @@ const UploadScreen = () => {
     if (!validate()) return;
 
     const params = new URLSearchParams({
-      imageUrl,
+      image_url,
       label,
       artist,
       member,
@@ -47,7 +47,7 @@ const UploadScreen = () => {
       buy: buy ? '1' : '0',
     });
 
-    const url = `https://your-server.com/upload.php?${params.toString()}`;
+    const url = `https://www.cs.drexel.edu/~gr539/BiasBinder-Final/backend/upload.php?${params.toString()}`;
 
     fetch(url)
       .then(response => response.text())
@@ -58,13 +58,16 @@ const UploadScreen = () => {
       .catch(error => {
         console.error('Upload failed:', error);
       });
+
+    // After successful fetch/upload
+    navigation.navigate('home', { refresh: true });
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <TextInput
         label="Image URL (optional)"
-        value={imageUrl}
+        value={image_url}
         onChangeText={setImageUrl}
         style={styles.input}
       />

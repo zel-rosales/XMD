@@ -1,6 +1,6 @@
 <?php
 try {
-    $db = new SQLite3(__DIR__ . '/photocards.db');
+    $db = new SQLite3(__DIR__ . '/database/photocards.db');
 
     $db->exec("CREATE TABLE IF NOT EXISTS photocards (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
