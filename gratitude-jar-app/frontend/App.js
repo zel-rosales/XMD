@@ -8,18 +8,17 @@ export default function App() {
   const [entries, setEntries] = useState([]);
   const [randomEntry, setRandomEntry] = useState('');
   const [clearStatus, setClearStatus] = useState('');
+  const [showEntries, setShowEntries] = useState(false);
 
-  const handleAddEntry = async() => {
-    if(!entry) {
+  const handleAddEntry = async () => {
+    if (!entry) {
       setStatus('Please enter values into all boxes.');
       return;
     }
 
-    // HTTP request
-    const query=`thankful=${entry}`;
+    const query = `thankful=${entry}`;
     const url = `https://www.cs.drexel.edu/~gr539/gratitude-jar-app/backend/add_gratitude.php?${query}`;
 
-    // Fetch mechanism
     try {
       const response = await fetch(url, { method: 'GET' });
       const text = await response.text();
@@ -28,24 +27,18 @@ export default function App() {
       handleLoadEntries();
     } catch (error) {
       setStatus('Networking problem: ' + error.message);
-      console.log('Fetch error: ', error.message);
     }
   };
 
   const handleGetRandomEntry = async () => {
-  try {
-    const response = await fetch('https://www.cs.drexel.edu/~gr539/gratitude-jar-app/backend/get_random_gratitude.php');
-    const data = await response.json();
-
-    if (data.thankful) {
-      setRandomEntry(`📝 ${data.thankful}`);
-    } else {
-      setRandomEntry("No gratitude entries found.");
+    try {
+      const response = await fetch('https://www.cs.drexel.edu/~gr539/gratitude-jar-app/backend/get_random_gratitude.php');
+      const data = await response.json();
+      setRandomEntry(data.thankful ? data.thankful : 'No gratitude entries found.');
+    } catch (error) {
+      setRandomEntry('Fetch error: ' + error.message);
     }
-  } catch (error) {
-    setRandomEntry("Fetch error: " + error.message);
-  }
-};
+  };
 
   const handleLoadEntries = async () => {
     try {
@@ -57,60 +50,93 @@ export default function App() {
     }
   };
 
-  const handleClearEntries = async () => {
-  try {
-    const response = await fetch(
-      'https://www.cs.drexel.edu/~gr539/gratitude-jar-app/backend/clear_gratitudes.php',
-      { method: 'POST' }          // use POST so it’s not run accidentally from a URL
-    );
-    const data = await response.json();
-
-    if (data.success) {
-      setEntries([]);             // empty local list
-      setRandomEntry('');
-      setClearStatus('🔄 Jar emptied!');
-    } else {
-      setClearStatus('Could not clear entries.');
+  const handleToggleEntries = async () => {
+    if (!showEntries) {
+      try {
+        const response = await fetch('https://www.cs.drexel.edu/~gr539/gratitude-jar-app/backend/get_gratitudes.php');
+        const data = await response.json();
+        setEntries(data);
+      } catch (error) {
+        console.log('Fetch error:', error.message);
+      }
     }
-  } catch (err) {
-    setClearStatus('Fetch error: ' + err.message);
-  }
-};
+    setShowEntries(!showEntries);
+  };
+
+  const handleClearEntries = async () => {
+    try {
+      const response = await fetch(
+        'https://www.cs.drexel.edu/~gr539/gratitude-jar-app/backend/clear_gratitudes.php',
+        { method: 'POST' }
+      );
+      const data = await response.json();
+      if (data.success) {
+        setEntries([]);
+        setRandomEntry('');
+        setClearStatus('Jar emptied!');
+      } else {
+        setClearStatus('Could not clear entries.');
+      }
+    } catch (err) {
+      setClearStatus('Fetch error: ' + err.message);
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Gratitude Jar</Text>
+      <View style={styles.fixedArea}>
+        <Text style={styles.title}>Gratitude Jar</Text>
 
-      <TextInput 
-        style={styles.entryInput} 
-        value={entry} 
-        onChangeText={setEntry} 
-      />
-      <Button title='Submit' onPress={handleAddEntry} />
+        {/* User enters entry */}
+        <TextInput
+          style={styles.entryInput}
+          value={entry}
+          onChangeText={setEntry}
+          placeholder="What are you thankful for?"
+        />
+        <Button 
+          style={styles.button}
+          title="Submit" 
+          onPress={handleAddEntry} 
+        />
+        <Text>{status}</Text>
 
-      <Text>{status}</Text>
+        <View style={styles.separator} />
 
-      <View style={styles.separator} />
+        {/* Pick entry from database */}
+        <Button 
+          style={styles.button}
+          title="Pick a Random Gratitude" 
+          onPress={handleGetRandomEntry} 
+        />
+        <Text style={styles.resultText}>{randomEntry}</Text>
 
-      {/* Display random entry from jar */}
-      <Button title='Pick a Random Gratitude' onPress={handleGetRandomEntry} />
-      <Text style={{ marginTop: 10 }}>{randomEntry}</Text>
+        {/* Empty database */}
+        <Button 
+          style={styles.button}
+          color="#b71c1c" 
+          title="Clear All Gratitudes" 
+          onPress={handleClearEntries} 
+        />
+        <Text>{clearStatus}</Text>
 
-      <Button
-        color="#b71c1c"                   
-        title="Clear All Gratitudes"
-        onPress={handleClearEntries}
-      />
-      <Text style={{ marginTop: 6 }}>{clearStatus}</Text>
+        {/* Toggle display/hide entries */}
+        <Button 
+          style={styles.button}
+          title={showEntries ? 'Hide Gratitudes' : 'Load Gratitudes'} 
+          onPress={handleToggleEntries} 
+        />
+      </View>
 
-
-      <Button title='Load Gratitudes' onPress={handleLoadEntries} />
-
-      <ScrollView style={styles.entriesContainer}>
-        {entries.map((e, index) => (
-          <Text key={index} style={styles.entryItem}>• {e}</Text>
-        ))}
-      </ScrollView>
+      <View style={styles.scrollArea}>
+        {showEntries && (
+          <ScrollView style={styles.entriesContainer}>
+            {entries.map((e, index) => (
+              <Text key={index} style={styles.entryItem}>• {e}</Text>
+            ))}
+          </ScrollView>
+        )}
+      </View>
     </View>
   );
 }
@@ -118,9 +144,16 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 20,
     backgroundColor: '#fff',
+  },
+  fixedArea: {
+    flexShrink: 0,
     alignItems: 'center',
-    justifyContent: 'center',
+  },
+  scrollArea: {
+    flex: 1,
+    marginTop: 10,
   },
   title: {
     fontSize: 28,
@@ -128,22 +161,31 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   entryInput: {
+    width: '100%',
     marginBottom: 10,
     padding: 10,
     borderWidth: 1,
     borderRadius: 5,
   },
-    separator: {
+  separator: {
     marginVertical: 20,
     borderBottomColor: '#aaa',
     borderBottomWidth: 1,
+    width: '100%',
   },
   entriesContainer: {
-    marginTop: 10,
-    maxHeight: 300,
+    paddingVertical: 10,
   },
   entryItem: {
     paddingVertical: 5,
     fontSize: 16,
+  },
+  resultText: {
+    marginVertical: 10,
+    fontStyle: 'italic',
+    textAlign: 'center',
+  },
+  button: {
+    margin: 10,
   },
 });
