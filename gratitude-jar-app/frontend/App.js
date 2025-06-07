@@ -1,38 +1,58 @@
 // App.js
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
-
-import AddGratitude from './screens/AddGratitude';
-import ViewGratitude from './screens/ViewGratitude';
-
-const Tab = createBottomTabNavigator();
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 
 export default function App() {
+  const [entry, setEntry] = useState('');
+  const [status, setStatus] = useState('');
+
+  const handleAddEntry = async() => {
+    if(!entry) {
+      setStatus('Please enter values into all boxes.');
+      return;
+    }
+
+    // HTTP request
+    const query=`thankful=${entry}`;
+    const url = `https://www.cs.drexel.edu/~gr539/gratitude-jar-app/backend/add_gratitude.php?${query}`;
+
+    // Fetch mechanism
+    try {
+      const response = await fetch(url, { method: 'GET' });
+      const text = await response.text();
+      setStatus(`✅ Entry saved: ${entry}`);
+    } catch (error) {
+      setStatus('Networking problem: ' + error.message);
+      console.log('Fetch error: ', error.message);
+    }
+  }
+
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          headerShown: false,
-          tabBarIcon: ({ color, size }) => {
-            let iconName;
+    <View style={styles.container}>
+      <Text style={styles.title}>Gratitude Jar</Text>
 
-            if (route.name === 'Add Gratitude') {
-              iconName = 'add-circle-outline';
-            } else if (route.name === 'View Gratitude') {
-              iconName = 'book-outline';
-            }
+      <TextInput style={styles.entryInput} value={entry} onChangeText={setEntry} />
+      <Button title='Submit' onPress={handleAddEntry} />
 
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: '#007AFF',
-          tabBarInactiveTintColor: 'gray',
-        })}
-      >
-        <Tab.Screen name="Add Gratitude" component={AddGratitude} />
-        <Tab.Screen name="View Gratitude" component={ViewGratitude} />
-      </Tab.Navigator>
-    </NavigationContainer>
+      <Text>{status}</Text>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 24,
+  },
+  entryInput: {
+    margin: 10,
+    padding: 10,
+    borderWidth: 1,
+
+  },
+});

@@ -21,7 +21,7 @@ export default function AddGratitude() {
     try {
       const response = await fetch(url, { method: 'GET'});
       const text = await response.text();
-      // console.log('Raw server response:', text);  // log raw response text
+      console.log('Entry saved: ', entry);  // for debugging
       setStatus(`✅ Entry saved: ${entry}`);
     } catch (error) {
       // console.error('Network error:', error);
