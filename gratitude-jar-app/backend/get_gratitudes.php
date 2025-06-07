@@ -1,17 +1,23 @@
 <?php
-// Enable CORS for local development
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+
+// Enable CORS
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Content-Type: application/json");
 
-// Connect to database
+// Connect to SQLite
 $db = new SQLite3("./database/gratitudes.db");
 
-// Fetch entries
-$results = $db->query("SELECT id, thankful FROM gratitude_entries ORDER BY created_at DESC");
+// Query entries
+$results = $db->query("SELECT thankful FROM entries");
 
-// Output plain text, each entry on a new line: "id||thankful"
+$entries = [];
 while ($row = $results->fetchArray(SQLITE3_ASSOC)) {
-    echo $row['id'] . '||' . $row['thankful'] . "\n";
+    $entries[] = $row['thankful'];
 }
+
+echo json_encode($entries);
 ?>
