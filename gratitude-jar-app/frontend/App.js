@@ -10,15 +10,17 @@ export default function App() {
   const [clearStatus, setClearStatus] = useState('');
   const [showEntries, setShowEntries] = useState(false);
 
+  // User input entry
   const handleAddEntry = async () => {
     if (!entry) {
-      setStatus('Please enter values into all boxes.');
+      setStatus('Please share something you\'re thankful for.');
       return;
     }
 
     const query = `thankful=${entry}`;
     const url = `https://www.cs.drexel.edu/~gr539/gratitude-jar-app/backend/add_gratitude.php?${query}`;
 
+    // Fetch mechanism
     try {
       const response = await fetch(url, { method: 'GET' });
       const text = await response.text();
@@ -30,6 +32,7 @@ export default function App() {
     }
   };
 
+  // Pick random entry from database
   const handleGetRandomEntry = async () => {
     try {
       const response = await fetch('https://www.cs.drexel.edu/~gr539/gratitude-jar-app/backend/get_random_gratitude.php');
@@ -40,6 +43,7 @@ export default function App() {
     }
   };
 
+  // Loads entry for submission confirmation
   const handleLoadEntries = async () => {
     try {
       const response = await fetch('https://www.cs.drexel.edu/~gr539/gratitude-jar-app/backend/get_gratitudes.php');
@@ -50,6 +54,7 @@ export default function App() {
     }
   };
 
+  // Toggle display/hide all entries
   const handleToggleEntries = async () => {
     if (!showEntries) {
       try {
@@ -63,6 +68,7 @@ export default function App() {
     setShowEntries(!showEntries);
   };
 
+  // Empties database
   const handleClearEntries = async () => {
     try {
       const response = await fetch(
