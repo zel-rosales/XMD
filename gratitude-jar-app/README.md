@@ -40,6 +40,37 @@ Pressing this button clears all entries from the jar, permanently deleting them 
 
 <img src="../Assignment_screenshots/GratJar_clear.png" alt="all entries clear" width="300"/>
 
+## Server APIs & Database (Back-end)
+
+### API Endpoints
+
+- **`add_gratitude.php`** — Adds a new gratitude entry  
+  - **Parameters:** `thankful` (string): The gratitude text to save  
+  - **Response:** Plain text confirmation message – “Entry Saved!”
+
+- **`get_gratitudes.php`** — Retrieves all gratitude entries  
+  - **Parameters:** None  
+  - **Response:** JSON array of gratitude strings  
+
+- **`get_random_gratitude.php`** — Retrieves a single random gratitude entry  
+  - **Parameters:** None  
+  - **Response:** JSON object with a `thankful` field  
+
+- **`clear_gratitudes.php`** — Deletes all gratitude entries from the database  
+  - **Parameters:** None (uses POST method for safety)  
+  - **Response:** JSON object indicating confirmation – “Jar emptied!”
+
+### Database
+
+The app uses a SQLite database to store gratitude entries persistently. It contains a single table:
+
+| Field    | Type                         | Description                         |
+| -------- | ---------------------------- | --------------------------------- |
+| `id`     | INTEGER PRIMARY KEY AUTOINCREMENT | Unique identifier for each entry |
+| `thankful` | TEXT                       | The text content of the gratitude entry |
+
+This schema allows easy insertion, retrieval, and deletion of entries through the API.
+
 ## Future steps
 
 This first version of Gratitude Jar offers basic functionality focused on saving and viewing entries. Future iterations could enhance the experience by:
