@@ -85,7 +85,7 @@ export default function AddPhotocardScreen() {
       <Text style={styles.status}>{status}</Text>
 
       {/* Live Preview */}
-      <View style={styles.preview}>
+      {/* <View style={styles.preview}>
         <Text style={styles.previewTitle}>Preview</Text>
         <Text>Label: {label}</Text>
         <Text>Artist: {artist}</Text>
@@ -93,7 +93,7 @@ export default function AddPhotocardScreen() {
         <Text>Album: {album}</Text>
         <Text>Favorite: {favorite ? 'Yes' : 'No'}</Text>
         <Text>Owned: {owned ? 'Yes' : 'No'}</Text>
-      </View>
+      </View> */}
     </ScrollView>
   );
 }
