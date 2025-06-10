@@ -1,21 +1,12 @@
 // frontend/screens/HomeScreen.js
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button } from 'react-native';
+import globalStyles from '../StyleSheet';
 
 export default function HomeScreen({ navigation }) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Your Photocard Binder</Text>
-      <Button title="Add New Photocard" onPress={() => navigation.navigate('Add')} />
+    <View style={globalStyles.container}>
+      <Text style={globalStyles.header}>Your Photocard Binder</Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1, alignItems: 'center', justifyContent: 'center', padding: 20,
-  },
-  title: {
-    fontSize: 22, marginBottom: 20,
-  },
-});

@@ -1,6 +1,8 @@
 // frontend/screens/AddPhotocardScreen.js
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, ScrollView, Switch } from 'react-native';
+import { StyleSheet, Text, View, TextInput, ScrollView, Switch } from 'react-native';
+import { Button } from 'react-native-paper';
+import globalStyles from '../StyleSheet';
 
 export default function AddPhotocardScreen() {
   const [status, setStatus] = useState('');
@@ -42,98 +44,55 @@ export default function AddPhotocardScreen() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.header}>Add Photocard</Text>
+    <View style={globalStyles.container}>
+      <Text style={globalStyles.header}>Add Photocard</Text>
 
       <TextInput
-        style={styles.input}
+        style={globalStyles.input}
         placeholder="Label"
         value={label}
         onChangeText={setLabel}
       />
       <TextInput
-        style={styles.input}
+        style={globalStyles.input}
         placeholder="Artist"
         value={artist}
         onChangeText={setArtist}
       />
       <TextInput
-        style={styles.input}
+        style={globalStyles.input}
         placeholder="Member"
         value={member}
         onChangeText={setMember}
       />
       <TextInput
-        style={styles.input}
+        style={globalStyles.input}
         placeholder="Album"
         value={album}
         onChangeText={setAlbum}
       />
 
-      <View style={styles.switchContainer}>
+      <View style={globalStyles.switchContainer}>
         <Text>Favorite</Text>
         <Switch value={favorite} onValueChange={setFavorite} />
       </View>
 
-      <View style={styles.switchContainer}>
+      <View style={globalStyles.switchContainer}>
         <Text>Owned</Text>
         <Switch value={owned} onValueChange={setOwned} />
       </View>
 
-      <Button title="Add Photocard" onPress={handleAddPhotocard} />
+      <Text style={globalStyles.status}>{status}</Text>
 
-      <Text style={styles.status}>{status}</Text>
-
-      {/* Live Preview */}
-      {/* <View style={styles.preview}>
-        <Text style={styles.previewTitle}>Preview</Text>
-        <Text>Label: {label}</Text>
-        <Text>Artist: {artist}</Text>
-        <Text>Member: {member}</Text>
-        <Text>Album: {album}</Text>
-        <Text>Favorite: {favorite ? 'Yes' : 'No'}</Text>
-        <Text>Owned: {owned ? 'Yes' : 'No'}</Text>
-      </View> */}
-    </ScrollView>
+      <View style={globalStyles.buttonContainerBottom}>
+        <Button 
+          mode="contained" 
+          onPress={handleAddPhotocard} 
+          style={globalStyles.button}
+          >
+            Add Photocard
+        </Button>
+      </View>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    alignItems: 'stretch',
-  },
-  header: {
-    fontSize: 22,
-    marginBottom: 10,
-    textAlign: 'center',
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#888',
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 12,
-  },
-  switchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-    justifyContent: 'space-between',
-  },
-  status: {
-    marginTop: 20,
-    textAlign: 'center',
-    color: '#007700',
-  },
-  preview: {
-    marginTop: 30,
-    padding: 15,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 10,
-  },
-  previewTitle: {
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-});
