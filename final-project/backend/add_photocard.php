@@ -7,6 +7,9 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
+// Set to JSON
+header('Content-type: application/json');
+
 // Connect to the SQLite database
 $db = new PDO('sqlite:photocards.db');
 
@@ -20,7 +23,10 @@ $owned = $_GET['owned'] ?? '0';
 
 // Check if required fields are filled
 if (!$label || !$artist || !$member || !$album) {
-    echo "Missing required fields.";
+    echo json_encode([
+        'success' => false,
+        'message' => 'Missing required fields.'
+    ]);
     exit;
 }
 
@@ -30,7 +36,15 @@ $sql = "INSERT INTO binder (label, artist, member, album, favorite, owned)
 
 $count = $db->exec($sql);
 
-// Return how many rows were inserted
-header('Content-type: text/plain');
-echo "Photocard added!";
+if ($count === false) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Insert failed.'
+    ]);
+} else {
+    echo json_encode([
+        'success' => true,
+        'message' => 'Photocard added!'
+    ]);
+}
 ?>

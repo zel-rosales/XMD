@@ -37,6 +37,19 @@ export default function AddPhotocardScreen() {
       const text = await response.text();
       setStatus(text); // Show server response message (e.g. "1 record inserted.")
       console.log('Server response:', text);
+
+      // If add was successful, clear form
+      if (text.toLowerCase().includes('success')) {
+        setLabel('');
+        setArtist('');
+        setMember('');
+        setAlbum('');
+        setFavorite(false);
+        setOwned(false);
+
+        // Optional: clear status after 3 seconds
+        setTimeout(() => setStatus(''), 3000);
+      }
     } catch (error) {
       setStatus('Network error: ' + error.message);
       console.error('Fetch error:', error);

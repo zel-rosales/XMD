@@ -18,8 +18,8 @@ export default function EditPhotocardScreen({ route, navigation }) {
   const [artist, setArtist] = useState(card.artist);
   const [member, setMember] = useState(card.member);
   const [album, setAlbum] = useState(card.album);
-  const [favorite, setFavorite] = useState(card.favorite === '1');
-  const [owned, setOwned] = useState(card.owned === '1');
+  const [favorite, setFavorite] = useState(card.favorite === '1' || card.favorite === 1);
+  const [owned, setOwned] = useState(card.favorite === '1' || card.favorite === 1);
   const [status, setStatus] = useState('');
 
   const handleSave = async () => {
