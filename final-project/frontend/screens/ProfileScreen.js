@@ -15,21 +15,26 @@ export default function ProfileScreen() {
 
   useEffect(() => {
     (async () => {
-      const savedName = await SecureStore.getItemAsync('name');
-      const savedArtist = await SecureStore.getItemAsync('artist');
-      const savedUltBias = await SecureStore.getItemAsync('ultBias');
-      const savedRoles = await SecureStore.getItemAsync('roles');
+      try {
+        const savedName = await SecureStore.getItemAsync('name') || '';
+        const savedArtist = await SecureStore.getItemAsync('artist') || '';
+        const savedUltBias = await SecureStore.getItemAsync('ultBias') || '';
+        const savedRoles = await SecureStore.getItemAsync('roles') || '{}';
 
-      if (savedName) setName(savedName);
-      if (savedArtist) setArtist(savedArtist);
-      if (savedUltBias) setUltBias(savedUltBias);
-      if (savedRoles) setRoles(JSON.parse(savedRoles));
-
-      if (savedName || savedArtist || savedUltBias || savedRoles) {
-        setIsEditing(false);
+        setName(savedName);
+        setArtist(savedArtist);
+        setUltBias(savedUltBias);
+        setRoles(JSON.parse(savedRoles));
+        
+        if (savedName || savedArtist || savedUltBias || savedRoles !== '{}') {
+          setIsEditing(false);
+        }
+      } catch (error) {
+        console.error('Error loading user data:', error);
       }
     })();
   }, []);
+
 
   const toggleRole = (role) => {
     setRoles((prev) => ({ ...prev, [role]: !prev[role] }));
