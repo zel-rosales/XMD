@@ -33,14 +33,19 @@ export default function EditPhotocardScreen({ route, navigation }) {
       owned: owned ? '1' : '0',
     }).toString();
 
-    const url = `https://www.cs.drexel.edu/~gr539/final-project/backend/save_edits.php?${queryParams}`;
+    const url = `https://www.cs.drexel.edu/~gr539/final-project/backend/edit_photocard.php?${queryParams}`;
 
     try {
       const response = await fetch(url);
-      const text = await response.text();
-      setStatus(text);
-      console.log('Save response:', text);
-      navigation.goBack(); // go back to Home screen
+      const data = await response.json();
+      setStatus(data);
+      console.log('Save response:', data);
+
+      if (data.success) {
+        navigation.goBack(); // go back to Home screen
+      } else {
+        setStatus('Save failed: ' + data.message);
+      }
     } catch (error) {
         setStatus('Save failed: ' + error.message);
     }
