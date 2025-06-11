@@ -134,6 +134,10 @@ const globalStyles = StyleSheet.create({
   isoTag: {
     backgroundColor: '#FF9800', // orange
   },
+  picker: {
+    alignSelf: 'center',
+    padding: 10,
+  },
 });
 
 export default globalStyles;
