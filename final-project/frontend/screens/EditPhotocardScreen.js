@@ -42,7 +42,7 @@ export default function EditPhotocardScreen({ route, navigation }) {
       console.log('Save response:', text);
       navigation.goBack(); // go back to Home screen
     } catch (error) {
-      setStatus('Save failed: ' + error.message);
+        setStatus('Save failed: ' + error.message);
     }
   };
 
@@ -55,6 +55,7 @@ export default function EditPhotocardScreen({ route, navigation }) {
       navigation.goBack(); // Go back to Home after deletion
     } catch (error) {
         console.error('Error deleting photocard:', error);
+        setStatus('Delete failed: ' + error.message);
     }
   };
 
@@ -106,7 +107,7 @@ export default function EditPhotocardScreen({ route, navigation }) {
             Save Changes
         </Button>
         <Button 
-            mode="contained" 
+            mode="outlined" 
             onPress={handleDelete} 
             buttonColor="#B00020"
             style={globalStyles.button}
