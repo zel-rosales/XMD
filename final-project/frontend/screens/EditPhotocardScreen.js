@@ -53,7 +53,7 @@ export default function EditPhotocardScreen({ route, navigation }) {
 
   const handleDelete = async () => {
     try {
-      const url = `https://www.cs.drexel.edu/~gr539/final-project/backend/delete_photocard.php?id=${photocard.id}`;
+      const url = `https://www.cs.drexel.edu/~gr539/final-project/backend/delete_photocard.php?id=${card.id}`;
       const response = await fetch(url, { method: 'GET' });
       const text = await response.text();
       console.log('Deleted:', text);
