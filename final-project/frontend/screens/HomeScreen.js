@@ -100,6 +100,10 @@ export default function HomeScreen({ navigation }) {
         </View>
       </View>
 
+      <Text style={{ fontSize: 14, marginVertical: 8 }}>
+        Showing {filteredPhotocards.length} of {photocards.length} card{filteredPhotocards.length !== 1 ? 's' : ''} 
+      </Text>
+
       {/* Photocard List */}
       <PhotocardList 
         data={filteredPhotocards} 
