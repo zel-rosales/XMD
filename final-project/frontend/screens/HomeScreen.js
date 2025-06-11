@@ -1,6 +1,6 @@
 // frontend/screens/HomeScreen.js
-import React, { useState, useCallback } from 'react';
-import { View, Text } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import { View, Text, TextInput } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { Picker } from '@react-native-picker/picker';
 import globalStyles from '../StyleSheet';
@@ -12,6 +12,7 @@ export default function HomeScreen({ navigation }) {
   const [photocards, setPhotocards] = useState([]);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('all'); // 'all', 'owned', 'iso', or 'favorite'
+  const [searchQuery, setSearchQuery] = useState('');
 
   const fetchPhotocards = useCallback(() => {
     fetch('https://www.cs.drexel.edu/~gr539/final-project/backend/get_photocards.php')
@@ -33,18 +34,38 @@ export default function HomeScreen({ navigation }) {
     }, [fetchPhotocards])
   );
 
-  // Filter logic
+  // Filter & Search logic - update photocard list dynamically
   const getFilteredPhotocards = () => {
+    let filtered = photocards;
+
+    // First, apply picker filter
     switch (filter) {
       case 'owned':
-        return photocards.filter(card => card.owned === 1 || card.owned === '1');
+        filtered = filtered.filter(card => card.owned === 1 || card.owned === '1');
+        break;
       case 'iso':
-        return photocards.filter(card => card.owned === 0 || card.owned === '0');
+        filtered = filtered.filter(card => card.owned === 0 || card.owned === '0');
+        break;
       case 'favorite':
-        return photocards.filter(card => card.favorite === 1 || card.favorite === '1');
+        filtered = filtered.filter(card => card.favorite === 1 || card.favorite === '1');
+        break;
       default:
-        return photocards;
+        break;
     }
+
+    // Then, apply search filter
+    if (searchQuery.trim() !== '') {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(card =>
+        (card.label && card.label.toLowerCase().includes(query)) ||
+        (card.artist && card.artist.toLowerCase().includes(query)) ||
+        (card.member && card.member.toLowerCase().includes(query)) ||
+        (card.album && card.album.toLowerCase().includes(query))
+      );
+    }
+
+    // Results
+    return filtered;
   };
 
   const filteredPhotocards = getFilteredPhotocards();
@@ -55,21 +76,31 @@ export default function HomeScreen({ navigation }) {
 
       {error && <Text style={{ color: 'red' }}>{error}</Text>}
 
-      {/* Filter Photocards */}
-      <View style={globalStyles.picker}>
-        <Text style={globalStyles.sectionLabel}>Filter by:</Text>
-        <Picker
-          selectedValue={filter}
-          onValueChange={(value) => setFilter(value)}
-          style={{ height: 50, width: '100%' }}
-        >
-          <Picker.Item label="Show All" value="all" />
-          <Picker.Item label="Owned" value="owned" />
-          <Picker.Item label="ISO" value="iso" />
-          <Picker.Item label="Favorites" value="favorite" />
-        </Picker>
+      <View style={globalStyles.filterContainer}>
+        {/* Search Bar */}
+        <TextInput
+          style={globalStyles.searchInput}
+          placeholder="Search by group, member, album..."
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+
+        {/* Filter Photocards */}
+        <View style={globalStyles.picker}>
+          <Picker
+            selectedValue={filter}
+            onValueChange={(value) => setFilter(value)}
+            style={{ height: 50, width: '100%' }}
+          >
+            <Picker.Item label="Show All" value="all" />
+            <Picker.Item label="Owned" value="owned" />
+            <Picker.Item label="ISO" value="iso" />
+            <Picker.Item label="Favorites" value="favorite" />
+          </Picker>
+        </View>
       </View>
 
+      {/* Photocard List */}
       <PhotocardList 
         data={filteredPhotocards} 
         onPress={(card) => navigation.navigate('Edit Photocard', { card })} 

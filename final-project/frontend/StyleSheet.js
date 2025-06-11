@@ -135,8 +135,23 @@ const globalStyles = StyleSheet.create({
     backgroundColor: '#FF9800', // orange
   },
   picker: {
-    alignSelf: 'center',
+    height: 30,
+  },
+  filterContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+    gap: 8,
     padding: 10,
+  },
+  searchInput: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    height: 40,
+    backgroundColor: 'white',
   },
 });
 
