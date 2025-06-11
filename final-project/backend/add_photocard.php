@@ -29,14 +29,8 @@ $sql = "INSERT INTO binder (label, artist, member, album, favorite, owned)
         VALUES ('$label', '$artist', '$member', '$album', '$favorite', '$owned')";
 
 $count = $db->exec($sql);
-// if ($count === false) {
-//     $errorInfo = $db->errorInfo();
-//     echo "Insert failed: " . $errorInfo[2];  // More detailed error
-// } else {
-//     echo "$count record inserted.";
-// }
 
 // Return how many rows were inserted
 header('Content-type: text/plain');
-echo "$count";
+echo "Photocard added!";
 ?>
