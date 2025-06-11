@@ -1,6 +1,7 @@
 // frontend/screens/HomeScreen.js
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import globalStyles from '../StyleSheet'; // assuming you're using this
 
 export default function HomeScreen() {
@@ -28,13 +29,26 @@ export default function HomeScreen() {
       <FlatList
         data={photocards}
         keyExtractor={(item, index) => index.toString()}
+        numColumns={2}
         contentContainerStyle={globalStyles.cardList}
         renderItem={({ item }) => (
-          <View style={globalStyles.card}>
-            <Text style={globalStyles.cardTitle}>{item.label}</Text>
+            <View style={globalStyles.card}>
+            <View style={globalStyles.cardHeader}>
+              <Text style={globalStyles.cardTitle}>{item.label}</Text>
+              {item.favorite === 1 && (
+                <MaterialCommunityIcons name="heart" size={20} color="red" />
+              )}
+            </View>
+
             <Text style={globalStyles.cardText}>{item.artist}</Text>
             <Text style={globalStyles.cardText}>{item.member}</Text>
             <Text style={globalStyles.cardText}>{item.album}</Text>
+
+            <View style={globalStyles.tagContainer}>
+              <Text style={[globalStyles.tag, item.owned === 1 ? globalStyles.ownedTag : globalStyles.isoTag]}>
+                {item.owned === 1 ? 'Owned' : 'ISO'}
+              </Text>
+            </View>
           </View>
         )}
       />

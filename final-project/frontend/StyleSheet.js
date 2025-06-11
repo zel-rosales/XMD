@@ -75,21 +75,28 @@ const globalStyles = StyleSheet.create({
     marginBottom: 5,
   },
   cardList: {
-    paddingVertical: 16,
-    paddingHorizontal: 12,
+    padding: 8,
+    justifyContent: 'space-between',
   },
   card: {
     backgroundColor: '#fff',
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 16,
+    borderRadius: 8,
+    padding: 12,
+    margin: 4,
+    flexBasis: '48%', // ensures two per row with margin
     borderWidth: 1,
     borderColor: '#ccc',
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 3,
+    elevation: 2, // Android shadow
+    shadowColor: '#000', // iOS shadow
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
   },
   cardTitle: {
     fontSize: 18,
@@ -99,6 +106,25 @@ const globalStyles = StyleSheet.create({
   cardText: {
     fontSize: 14,
     marginBottom: 4,
+  },
+  tagContainer: {
+    marginTop: 10,
+  },
+  tag: {
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 12,
+    alignSelf: 'flex-start',
+    fontWeight: 'bold',
+    fontSize: 12,
+    overflow: 'hidden',
+    color: '#fff',
+  },
+  ownedTag: {
+    backgroundColor: '#4CAF50', // green
+  },
+  isoTag: {
+    backgroundColor: '#FF9800', // orange
   },
 });
 
