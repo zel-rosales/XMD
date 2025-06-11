@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import globalStyles from '../StyleSheet'; // assuming you're using this
 import { TouchableOpacity } from 'react-native';
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   const [photocards, setPhotocards] = useState([]);
   const [error, setError] = useState(null);
 
@@ -33,7 +33,7 @@ export default function HomeScreen() {
         numColumns={2}
         contentContainerStyle={globalStyles.cardList}
         renderItem={({ item }) => (
-          <TouchableOpacity style={globalStyles.card} onPress={() => navigation.navigate('EditPhotocard', { card })}>
+          <TouchableOpacity style={globalStyles.card} onPress={() => navigation.navigate('Edit Photocard', { card: item })}>
             <View style={globalStyles.cardInner}>
               <View style={globalStyles.cardHeader}>
                 <Text style={globalStyles.cardTitle}>{item.label}</Text>
