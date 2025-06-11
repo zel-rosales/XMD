@@ -14,7 +14,7 @@ header("Content-Type: application/json");
 $db = new SQLite3('photocards.db');
 
 // Query entries
-$results = $db->query("SELECT * FROM binder");
+$results = $db->query("SELECT * FROM binder ORDER BY id DESC");
 
 $photocards = [];
 
