@@ -39,6 +39,7 @@ const globalStyles = StyleSheet.create({
   input: {
     margin: 10,
     padding: 10,
+    backgroundColor: "#fff",
     borderWidth: 1,
     borderColor: '#888',
     borderRadius: 8,
@@ -72,6 +73,32 @@ const globalStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 5,
+  },
+  cardList: {
+    paddingVertical: 16,
+    paddingHorizontal: 12,
+  },
+  card: {
+    backgroundColor: '#fff',
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 3,
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  cardText: {
+    fontSize: 14,
+    marginBottom: 4,
   },
 });
 

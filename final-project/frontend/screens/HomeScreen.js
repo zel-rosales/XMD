@@ -28,12 +28,13 @@ export default function HomeScreen() {
       <FlatList
         data={photocards}
         keyExtractor={(item, index) => index.toString()}
+        contentContainerStyle={globalStyles.cardList}
         renderItem={({ item }) => (
-          <View style={{ marginBottom: 12 }}>
-            <Text>Label: {item.label}</Text>
-            <Text>Artist: {item.artist}</Text>
-            <Text>Member: {item.member}</Text>
-            <Text>Album: {item.album}</Text>
+          <View style={globalStyles.card}>
+            <Text style={globalStyles.cardTitle}>{item.label}</Text>
+            <Text style={globalStyles.cardText}>{item.artist}</Text>
+            <Text style={globalStyles.cardText}>{item.member}</Text>
+            <Text style={globalStyles.cardText}>{item.album}</Text>
           </View>
         )}
       />
