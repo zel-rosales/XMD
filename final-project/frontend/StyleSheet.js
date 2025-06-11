@@ -103,12 +103,20 @@ const globalStyles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 8,
   },
+  cardInner: {
+    flex: 1,
+    justifyContent: 'space-between',
+    height: 200,
+  },
   cardText: {
     fontSize: 14,
     marginBottom: 4,
   },
   tagContainer: {
     marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   tag: {
     paddingHorizontal: 10,
