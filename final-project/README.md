@@ -23,7 +23,7 @@ Below is a quick walkthrough of **Bias Binder**, showcasing key screens and func
 
 ### 1. 📂 View & Filter Your Photocard Collection  
 Displays a dynamic list of photocards retrieved from the database with most recently added ordered first, along with a total count of all cards and those currently shown (based on filters). Users can filter by tags (All, Owned, ISO, Favorites) or search by keyword.  
-<img src="../Assignment_screenshots/FinProj_home_allCards.png" alt="Bias Binder home screen - all cards displayed" width="300"/> <img src="../Assignment_screenshots/FinProj_home_search.png" alt="Bias Binder home screen - search applied" width="300"/> <img src="../Assignment_screenshots/FinProj_home_searchAndFav.png" alt="Bias Binder home screen - search and favorites filter applied" width="300"/>
+<img src="../Assignment_screenshots/FinProj_home_allCards.png" alt="Bias Binder home screen - all cards displayed" height="250"/> <img src="../Assignment_screenshots/FinProj_home_search.png" alt="Bias Binder home screen - search applied" height="250"/> <img src="../Assignment_screenshots/FinProj_home_searchAndFav.png" alt="Bias Binder home screen - search and favorites filter applied" height="250"/>
 
 ### 2. ➕ Add New Photocards  
 Users can add new photocards to their collection using a clean input form. Each entry is stored in the database and immediately visible in the list view.  
@@ -39,7 +39,7 @@ Users can personalize their profile by entering and saving their name, favorite 
 
 ### 5. 🏷️ Tag & Search Cards  
 Photocards can be tagged with buy/sell/trade labels (WTS, WTT, WTB), making it easy to manage trading activity. The photocard list updates dynamically when filters or edits are applied.  
-<img src="../Assignment_screenshots/FinProj_pcTags.png" alt="Bias Binder photocard tags" width="300"/>
+<img src="../Assignment_screenshots/FinProj_pcTags.png" alt="Bias Binder photocard tags" height="300"/>
 
 ## Server API Design & Specification
 
