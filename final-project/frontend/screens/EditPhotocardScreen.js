@@ -6,9 +6,8 @@ import {
   TextInput,
   ScrollView,
   Switch,
-  Alert,
 } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Button, Checkbox } from 'react-native-paper';
 import globalStyles from '../StyleSheet';
 
 export default function EditPhotocardScreen({ route, navigation }) {
@@ -19,7 +18,10 @@ export default function EditPhotocardScreen({ route, navigation }) {
   const [member, setMember] = useState(card.member);
   const [album, setAlbum] = useState(card.album);
   const [favorite, setFavorite] = useState(card.favorite === '1' || card.favorite === 1);
-  const [owned, setOwned] = useState(card.favorite === '1' || card.favorite === 1);
+  const [owned, setOwned] = useState(card.owned === '1' || card.owned === 1);
+  const [wts, setWTS] = useState(card.wts === 1 || card.wts === '1');
+  const [wtt, setWTT] = useState(card.wtt === 1 || card.wtt === '1');
+  const [wtb, setWTB] = useState(card.wtb === 1 || card.wtb === '1');
   const [status, setStatus] = useState('');
 
   const handleSave = async () => {
@@ -31,6 +33,9 @@ export default function EditPhotocardScreen({ route, navigation }) {
       album,
       favorite: favorite ? '1' : '0',
       owned: owned ? '1' : '0',
+      wts: wts ? '1' : '0', 
+      wtt: wtt ? '1' : '0',
+      wtb: wtb ? '1' : '0',
     }).toString();
 
     const url = `https://www.cs.drexel.edu/~gr539/final-project/backend/edit_photocard.php?${queryParams}`;
@@ -68,6 +73,7 @@ export default function EditPhotocardScreen({ route, navigation }) {
     <ScrollView contentContainerStyle={globalStyles.container}>
       <Text style={globalStyles.header}>Edit Photocard</Text>
 
+      {/* Photocard details */}
       <TextInput
         style={globalStyles.input}
         placeholder="Label"
@@ -93,6 +99,7 @@ export default function EditPhotocardScreen({ route, navigation }) {
         onChangeText={setAlbum}
       />
 
+      {/* Favorite & Ownership toggles */}
       <View style={globalStyles.switchContainer}>
         <Text>Favorite</Text>
         <Switch value={favorite} onValueChange={setFavorite} />
@@ -101,6 +108,30 @@ export default function EditPhotocardScreen({ route, navigation }) {
       <View style={globalStyles.switchContainer}>
         <Text>Owned</Text>
         <Switch value={owned} onValueChange={setOwned} />
+      </View>
+
+      {/* Tags: WTS, WTT, WTB */}
+      <Text style={globalStyles.sectionLabel}>Tags:</Text>
+      <View style={globalStyles.checkboxRow}>
+        <Checkbox
+          status={wts ? 'checked' : 'unchecked'}
+          onPress={() => setWTS(!wts)}
+        />
+        <Text>Willing to Sell (WTS)</Text>
+      </View>
+      <View style={globalStyles.checkboxRow}>
+        <Checkbox
+          status={wtt ? 'checked' : 'unchecked'}
+          onPress={() => setWTT(!wtt)}
+        />
+        <Text>Willing to Trade (WTT)</Text>
+      </View>
+      <View style={globalStyles.checkboxRow}>
+        <Checkbox
+          status={wtb ? 'checked' : 'unchecked'}
+          onPress={() => setWTB(!wtb)}
+        />
+        <Text>Willing to Buy (WTB)</Text>
       </View>
 
       <View style={globalStyles.buttonContainerBottom}>

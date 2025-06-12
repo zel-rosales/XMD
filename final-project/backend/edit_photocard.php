@@ -21,6 +21,9 @@ $member = $_GET['member'] ?? '';
 $album = $_GET['album'] ?? '';
 $favorite = $_GET['favorite'] ?? '0';
 $owned = $_GET['owned'] ?? '0';
+$wts = $_GET['wts'] ?? '0';
+$wtt = $_GET['wtt'] ?? '0';
+$wtb = $_GET['wtb'] ?? '0';
 
 // Basic check
 if (!$id) {
@@ -35,7 +38,10 @@ $sql = "UPDATE binder SET
             member = '$member',
             album = '$album',
             favorite = '$favorite',
-            owned = '$owned'
+            owned = '$owned',
+            wts = '$wts',
+            wtt = '$wtt',
+            wtb = '$wtb'
         WHERE id = $id";
 
 // Run update

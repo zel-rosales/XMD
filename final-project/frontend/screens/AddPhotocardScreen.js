@@ -1,7 +1,7 @@
 // frontend/screens/AddPhotocardScreen.js
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, ScrollView, Switch } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Button, Checkbox } from 'react-native-paper';
 import globalStyles from '../StyleSheet';
 
 export default function AddPhotocardScreen() {
@@ -12,6 +12,9 @@ export default function AddPhotocardScreen() {
   const [album, setAlbum] = useState('');
   const [favorite, setFavorite] = useState(false);
   const [owned, setOwned] = useState(false);
+  const [wts, setWTS] = useState(false);
+  const [wtt, setWTT] = useState(false);
+  const [wtb, setWTB] = useState(false);
 
   const handleAddPhotocard = async () => {
   if (!label || !artist || !member || !album) {
@@ -28,6 +31,9 @@ export default function AddPhotocardScreen() {
     album,
     favorite: favorite ? '1' : '0',  // convert boolean to '1' or '0'
     owned: owned ? '1' : '0',
+    wts: wts ? '1' : '0', 
+    wtt: wtt ? '1' : '0',
+    wtb: wtb ? '1' : '0',
   }).toString();
 
     const url = `https://www.cs.drexel.edu/~gr539/final-project/backend/add_photocard.php?${queryParams}`;
@@ -57,6 +63,7 @@ export default function AddPhotocardScreen() {
     <View style={globalStyles.container}>
       <Text style={globalStyles.header}>Add Photocard</Text>
 
+      {/* Photocard Info */}
       <TextInput
         style={globalStyles.input}
         placeholder="Label"
@@ -82,6 +89,7 @@ export default function AddPhotocardScreen() {
         onChangeText={setAlbum}
       />
 
+      {/* Favorite & Ownership toggles */}
       <View style={globalStyles.switchContainer}>
         <Text>Favorite</Text>
         <Switch value={favorite} onValueChange={setFavorite} />
@@ -91,6 +99,33 @@ export default function AddPhotocardScreen() {
         <Text>Owned</Text>
         <Switch value={owned} onValueChange={setOwned} />
       </View>
+
+      {/* Tags: WTS, WTT, WTB */}
+      <Text style={globalStyles.sectionLabel}>Tags:</Text>
+      <View style={{ marginLeft: 10 }}>
+        <View style={globalStyles.checkboxRow}>
+          <Checkbox
+            status={wts ? 'checked' : 'unchecked'}
+            onPress={() => setWTS(!wts)}
+          />
+          <Text>Willing to Sell (WTS)</Text>
+        </View>
+        <View style={globalStyles.checkboxRow}>
+          <Checkbox
+            status={wtt ? 'checked' : 'unchecked'}
+            onPress={() => setWTT(!wtt)}
+          />
+          <Text>Willing to Trade (WTT)</Text>
+        </View>
+        <View style={globalStyles.checkboxRow}>
+          <Checkbox
+            status={wtb ? 'checked' : 'unchecked'}
+            onPress={() => setWTB(!wtb)}
+          />
+          <Text>Willing to Buy (WTB)</Text>
+        </View>
+      </View>
+
 
       <Text style={globalStyles.status}>{status}</Text>
 
