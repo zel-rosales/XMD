@@ -165,7 +165,7 @@ This app uses a SQLite database named `photocards.db` to store user-added photoc
 | `label`     | TEXT    | Custom label for identifying the photocard.          |
 | `artist`    | TEXT    | Name of the K-pop group or solo artist.              |
 | `member`    | TEXT    | Specific member featured on the photocard.           |
-| `album`     | TEXT    | Album or era the photocard comes from.               |
+| `album`     | TEXT    | Album or set the photocard comes from.               |
 | `favorite`  | INTEGER | Boolean value (`0` or `1`) for marking as favorite.  |
 | `owned`     | INTEGER | Boolean value (`0` or `1`) for indicating ownership. |
 | `wts`       | INTEGER | Boolean (`0` or `1`). Willing to Sell.               |
@@ -209,7 +209,7 @@ Some best practices I applied:
 
 ---
 
-### 🚀 Future Plans
+### Future Plans
 
 I plan to revisit and implement the advanced UI features I initially ideated. These include:
 
