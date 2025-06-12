@@ -19,32 +19,27 @@ Bias Binder is built for K-pop enthusiasts—especially photocard collectors—s
 
 ## Walkthrough
 
-## 📸 Screenshots
-
-Below is a quick walkthrough of **Bias Binder**, showcasing key screens and functionality:
+Below is a quick walkthrough of **Bias Binder**, showcasing key screens and functionality. Due to network security issues to Drexel's server, screens that require network connectivity are shown here in browser rather than mobile.
 
 ### 1. 📂 View & Filter Your Photocard Collection  
-Displays a dynamic list of photocards retrieved from the database, along with a total count of all cards and those currently shown (based on filters). Users can filter by tags (All, Owned, ISO, Favorites) or search by keyword.  
-![Photocard List Screen](path/to/photocard-list-screenshot.png)
+Displays a dynamic list of photocards retrieved from the database with most recently added ordered first, along with a total count of all cards and those currently shown (based on filters). Users can filter by tags (All, Owned, ISO, Favorites) or search by keyword.  
+<img src="../Assignment_screenshots/FinProj_home_allCards.png" alt="Bias Binder home screen - all cards displayed" width="300"/> <img src="../Assignment_screenshots/FinProj_home_search.png" alt="Bias Binder home screen - search applied" width="300"/> <img src="../Assignment_screenshots/FinProj_home_searchAndFav.png" alt="Bias Binder home screen - search and favorites filter applied" width="300"/>
 
 ### 2. ➕ Add New Photocards  
 Users can add new photocards to their collection using a clean input form. Each entry is stored in the database and immediately visible in the list view.  
-![Add Photocard Screen](path/to/add-photocard-screenshot.png)
+<img src="../Assignment_screenshots/FinProj_addPc_blank.png" alt="Bias Binder add photocard screen - blank" width="300"/> <img src="../Assignment_screenshots/FinProj_addPc_pop.png" alt="Bias Binder add photocard screen - populated" width="300"/>
 
 ### 3. 🛠️ Edit or Delete Photocard Entries  
 Photocards can be edited or deleted at any time. Users can update card info, ownership, and tag status (e.g., WTS, WTT, WTB).  
-![Edit Photocard Screen](path/to/edit-photocard-screenshot.png)
+<img src="../Assignment_screenshots/FinProj_editDelPc.png" alt="Bias Binder edit/delete photocard screen" width="300"/>
 
 ### 4. 🙋‍♀️ Customize Your Profile  
 Users can personalize their profile by entering and saving their name, favorite artist, ult bias, and collector roles. This data is saved with persistent secure storage.  
-![Profile Screen](path/to/profile-screenshot.png)
+<img src="../Assignment_screenshots/FinProj_profile_blank.png" alt="Bias Binder profile screen - blank" width="300"/> <img src="../Assignment_screenshots/FinProj_profile_pop.png" alt="Bias Binder profile screen - populated" width="300"/>
 
 ### 5. 🏷️ Tag & Search Cards  
 Photocards can be tagged with buy/sell/trade labels (WTS, WTT, WTB), making it easy to manage trading activity. The photocard list updates dynamically when filters or edits are applied.  
-![Card List with Tags](path/to/tags-screenshot.png)
-
-
-<img src="../Assignment_screenshots/BiasBinder_profileError.png" alt="Bias Binder Profile Page Error Info" width="200"/>
+<img src="../Assignment_screenshots/FinProj_pcTags.png" alt="Bias Binder photocard tags" width="300"/>
 
 ## Server API Design & Specification
 

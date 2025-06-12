@@ -51,6 +51,9 @@ export default function AddPhotocardScreen() {
       setAlbum('');
       setFavorite(false);
       setOwned(false);
+      setWTS(false);
+      setWTT(false);
+      setWTB(false);
       setStatus('Photocard added!');
       setTimeout(() => setStatus(''), 3000);
     } catch (error) {
