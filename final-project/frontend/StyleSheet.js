@@ -132,7 +132,19 @@ const globalStyles = StyleSheet.create({
     backgroundColor: '#4CAF50', // green
   },
   isoTag: {
+    backgroundColor: '#2196F3', // blue
+  },
+
+  wtsTag: {
+    backgroundColor: '#F44336', // red
+  },
+
+  wttTag: {
     backgroundColor: '#FF9800', // orange
+  },
+
+  wtbTag: {
+    backgroundColor: '#9C27B0', // purple
   },
   picker: {
     height: 30,
