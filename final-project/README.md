@@ -179,7 +179,7 @@ This app uses a SQLite database named `photocards.db` to store user-added photoc
 
 This schema ensures a lightweight yet flexible structure for mobile-friendly CRUD operations via API calls.
 
-## 💡 Experiences
+## Experiences
 
 ### Challenges & Issues
 
