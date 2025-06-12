@@ -23,7 +23,7 @@ Below is a quick walkthrough of **Bias Binder**, showcasing key screens and func
 
 ### 1. 📂 View & Filter Your Photocard Collection  
 Displays a dynamic list of photocards retrieved from the database with most recently added ordered first, along with a total count of all cards and those currently shown (based on filters). Users can filter by tags (All, Owned, ISO, Favorites) or search by keyword.  
-<img src="../Assignment_screenshots/FinProj_home_allCards.png" alt="Bias Binder home screen - all cards displayed" height="250"/> <img src="../Assignment_screenshots/FinProj_home_search.png" alt="Bias Binder home screen - search applied" height="250"/> <img src="../Assignment_screenshots/FinProj_home_searchAndFav.png" alt="Bias Binder home screen - search and favorites filter applied" height="250"/>
+<img src="../Assignment_screenshots/FinProj_home_allCards.png" alt="Bias Binder home screen - all cards displayed" height="350"/> <img src="../Assignment_screenshots/FinProj_home_search.png" alt="Bias Binder home screen - search applied" height="350"/> <img src="../Assignment_screenshots/FinProj_home_searchAndFav.png" alt="Bias Binder home screen - search and favorites filter applied" height="350"/>
 
 ### 2. ➕ Add New Photocards  
 Users can add new photocards to their collection using a clean input form. Each entry is stored in the database and immediately visible in the list view.  
